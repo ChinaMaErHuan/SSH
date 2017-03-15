@@ -106,6 +106,7 @@ public class ContentAction extends BaseAction {
 	public String update(){
 		content.setUpdateTime(new Date());
 		contentService.updateDefault(content);
+		//对象太大 要清空不然会报错
 		content = null;
 		result = SUCCESS;
 		return AJAX_SUCCESS;

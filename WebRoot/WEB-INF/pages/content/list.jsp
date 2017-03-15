@@ -250,6 +250,7 @@
 			
 			if(isNotEmpty(opid)){
 				method = "update";
+				//动态添加
  				params["content.id"] = opid;
 			}
 			
@@ -278,9 +279,10 @@
 							"	 </tr>");
 						}else{//update
 							loading("更新更新成功!!!",4);
+							//清空
 							$("#title").removeData("opid").val("");
-							
 							setEditorContent("p_desc","");
+							//级联更改
 							$("#tz-items-"+opid).find(".title").text(title);
 						}
 					}
