@@ -1,0 +1,66 @@
+package com.tz.web.[lowEntity];
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import com.tz.model.[entity];
+import com.tz.service.[lowEntity].I[entity]Service;
+
+/**
+ * 
+ * 老师用户
+ * [entity]Action
+ * 创建人:[author] 
+ * 时间：[date]
+ * @version 1.0.0
+ *
+ */
+@Controller("[lowEntity]Action")
+@Scope("prototype")
+public class [entity]Action {
+
+	@Autowired
+	private I[entity]Service [lowEntity]Service;
+	
+	private [entity] [lowEntity];
+	
+	/**
+	 * [description]
+	 * 保存
+	 * 创建人：[author] 
+	 * 时间：[date]
+	 * @return String
+	 * @exception 
+	 * @since  1.0.0
+	 * 
+	 */
+	public String list(){
+		[lowEntity] = new [entity]();
+		[lowEntity].setIsDelete(0);
+		[lowEntity].setName("keke");
+		[lowEntity].setStatus(1);
+		[lowEntity]Service.save([lowEntity]);
+		return "list";
+	}
+	
+	public String list2(){
+		[lowEntity] = [lowEntity]Service.get(1);
+		System.out.println([lowEntity].getName());
+		return "list2";
+	}
+	
+	public String delete(){
+		[lowEntity]Service.deleteById(1);
+		return "list2";
+	}
+
+	//setter/getter
+	public [entity] get[entity]() {
+		return [lowEntity];
+	}
+
+	public void set[entity]([entity] [lowEntity]) {
+		this.[lowEntity] = [lowEntity];
+	}
+}

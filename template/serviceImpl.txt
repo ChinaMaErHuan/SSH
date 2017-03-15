@@ -1,0 +1,33 @@
+package com.tz.service.[lowEntity].impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.tz.core.service.BaseServiceImpl;
+import com.tz.dao.[lowEntity].I[entity]Dao;
+import com.tz.model.[entity];
+import com.tz.service.[lowEntity].I[entity]Service;
+
+/**
+ * 
+ * [description]
+ * [entity]ServiceImpl 
+ * 创建人:[author] 
+ * 时间：[date]
+ * 
+ * @version 1.0.0
+ * 
+ */
+@Service
+public class [entity]ServiceImpl extends BaseServiceImpl<[entity],Integer>  implements I[entity]Service {
+	
+	public I[entity]Dao get[entity]Dao() {
+		return (I[entity]Dao) super.getBaseDao();
+	}
+	
+	@Autowired
+	public void set[entity]Dao(I[entity]Dao [lowEntity]Dao) {
+		super.setBaseDao([lowEntity]Dao);
+	}
+	
+}

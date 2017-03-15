@@ -1,0 +1,18 @@
+package com.tz.service.[lowEntity];
+
+import com.tz.core.service.IBaseService;
+import com.tz.model.[entity];
+
+/**
+ * 
+ * [description]
+ * I[entity]Service
+ * 创建人:[author]
+ * 时间：[date] 
+ * @version 1.0.0
+ *
+ */
+public interface I[entity]Service extends IBaseService<[entity],Integer> {
+
+	
+}

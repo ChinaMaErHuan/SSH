@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- struts2寻找一个action的顺序如下： 1.查找指定命名空间下的action 找到就执行 2.如果找不到 就到默认的命名空间下面查找 
+		找到就执行 找不到就报错 -->
+	<!-- 在同一命名空间下面不允许有相同放入actionname 注册到我们strust.xml文件中 file="xml路径" 指明的是classPath下面文件 
+		和引入的顺序无关， 1:分包：可以将大量的Action的配置包含在其他文件中，然程序和业五逻辑变得更加的清晰明了 2:低耦合，高内聚 -->
+	
+	<!-- 通用配置 -->
+	<!-- abstract="true"表示当前包是抽象包，所以当前包中不允许出现<action/>的配置 -->
+	<package name="defaults"  extends="json-default">
+		<interceptors>
+			<interceptor name="methodInterceptor" class="methodInterceptor"></interceptor> 
+			<interceptor name="loginInterceptor" class="loginInterceptor"></interceptor>
+			<interceptor-stack name="loginStack">
+ 				<interceptor-ref name="methodInterceptor"></interceptor-ref> 
+				<interceptor-ref name="loginInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<global-results>
+			<result name="error" type="redirect">/405.jsp</result>
+			<result name="toIndex" type="redirect">index</result>
+			<result name="toLogin" type="redirect">login</result>
+		</global-results>
+	</package>
+	
+	<!-- ajax配置 -->
+	<package name="jsonpackage" namespace="/json" extends="defaults">
+
+		<action name="logined" method="logined" class="loginAction">
+			<result type="json" name="ajaxSuccess">
+				<param name="ignoreHierarchy">false</param><!-- 这个属性表示是否忽略等级，也就是继承关系,设置为 false 后会将父类和子类的属性一起返回 -->
+				<param name="excludeNullProperties">true</param><!-- 这个属性表示去除空数据 -->
+			</result>
+		</action>
+		<action name="/*/*" method="{2}" class="{1}Action">
+			<result type="json" name="ajaxSuccess">
+				<param name="ignoreHierarchy">false</param><!-- 这个属性表示是否忽略等级，也就是继承关系,设置为 false 后会将父类和子类的属性一起返回 -->
+				<param name="excludeNullProperties">true</param><!-- 这个属性表示去除空数据 -->
+			</result>
+ 			<interceptor-ref name="loginStack"></interceptor-ref>
+		</action>
+	</package>
+
+	<!-- 登陆和首页 -->
+	<package name="loginpackage"  extends="defaults">
+		
+		<action name="/admin/*/*" method="{2}" class="{1}Action">
+			<result name="{2}">/WEB-INF/pages/{1}/{2}.jsp</result>
+		</action>
+		
+		<!-- 首页 -->
+		<action name="index" class="indexAction">
+			<interceptor-ref name="loginStack"></interceptor-ref>
+			<result name="success">/WEB-INF/pages/index.jsp</result>
+		</action>
+		
+		
+		<!-- 退出登录 -->
+		<action name="logout" method="logout" class="loginAction">
+			<interceptor-ref name="methodInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		
+		<!-- 跳转首页 -->
+		<action name="login" method="login" class="loginAction">
+			<result name="login">/WEB-INF/pages/login.jsp</result>
+ 			<interceptor-ref name="methodInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+	</package>
+	
+</struts>   

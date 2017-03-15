@@ -1,0 +1,16 @@
+package com.tz.dao.[lowEntity];
+
+import com.tz.core.dao.IBaseDao;
+import com.tz.model.[entity];
+
+/**
+ * 
+ * [description]
+ * I[entity]Dao
+ * 创建人:[author]
+ * 时间：[date]
+ * @version 1.0.0
+ *
+ */
+public interface I[entity]Dao extends IBaseDao<[entity],Integer> {
+}
