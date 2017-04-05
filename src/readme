@@ -102,6 +102,6 @@
 	行列转换：GROUP_CONCAT()
 	SELECT 字段,GROUP_CONCAT(被转换的字段) from.....[left join ... where ...]
 	
-	Jsoup抓取网页内容==== 自定义标签 ====拦截器====敏捷开发====
+	Jsoup抓取网页内容==== 自定义标签 ====拦截器====敏捷开发
 	
 	
