@@ -45,7 +45,7 @@ public class PermissionDaoImpl extends BaseDaoImpl<Permission,Integer> implement
 	@Override
 	public List<Object[]> findPermissionByUserId(Integer userId) {
 		String sql =" SELECT DISTINCT t1.url,t1.model,t1.method "+
-			" FROM tz_permission t1 "+
+			" FROM tz_permission2 t1 "+
 			" LEFT JOIN tz_role_permission t2 ON t1.id = t2.permission_id "+
 			" LEFT JOIN tz_role t3 ON t3.id = t2.role_id "+
 			" LEFT JOIN tz_role_user t4 ON t4.role_id = t3.id "+

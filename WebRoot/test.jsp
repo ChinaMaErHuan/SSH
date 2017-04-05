@@ -31,6 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    System.out.println(request.getServletPath());
    System.out.println(request.getRemoteHost());
    System.out.println(request.getLocalName());
+   System.out.println(request.getRealPath("upload"));
 //    null
 //    -1
 //    /cms/test.jsp

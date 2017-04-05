@@ -41,24 +41,20 @@ public class TzMethodInterceptor extends AbstractInterceptor{
 			//获取当前请求的Action对象
 //			Object action = invocation.getProxy().getAction();
 			//获取当前请求类的class对象
-			@SuppressWarnings("rawtypes")
 			Class clz = invocation.getProxy().getAction().getClass();
 			//获取当前请求的方式
 			String postType = request.getMethod();
-			
 			//获取当前请求的方法
 			String methodName = invocation.getProxy().getMethod();
 			//根据返回获取当前方法是否存在
-			
 			Method method = clz.getDeclaredMethod(methodName, null);
 			if(method!=null){//如果method不为null
 				//获取当前方法上是否加有自己定义的注解tzMethod
 				com.tz.core.Method tzMethod = method.getAnnotation(com.tz.core.Method.class);
-				//如果有自己定义的注解tzMethod
+				//如果有
 				if(tzMethod!=null){
 					//获取你自定义的value的值
 					String value = tzMethod.value();
-					
 					//如果不为null那么并且如果你写入的请求方式和当前请求的方式不一致，返回false
 					if(TzStringUtils.isNotEmpty(value) && !value.equalsIgnoreCase(postType)){
 						flag = false;

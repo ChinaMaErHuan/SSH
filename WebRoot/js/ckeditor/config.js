@@ -1,32 +1,37 @@
 CKEDITOR.editorConfig = function( config ) {
-	config.toolbarGroups =  [
-	    { name: 'document',	 groups: [ 'mode'] },
-	    { name: 'basicstyles', groups: [ 'basicstyles'] },
-	    { name: 'insert' },
-		{ name: 'paragraph',   groups: [ 'indent', 'align' ] },
-		{ name: 'links' },
-		{ name: 'styles'},
-		{ name: 'colors' },
-		{ name: 'others' },
-		{ name: 'tools' },
-		{ name: 'UploadPic'},
-		{ name: 'UploadMovie'},
-		{ name: 'clipboard',   groups: [ 'clipboard' ] },
-		{ name: 'UploadFile'}
+	config.toolbar = 'Full';
+	config.toolbar_Full =  
+	[  
+	    { name: 'document', items : [ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] },  
+	    { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },  
+	    { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },  
+	    { name: 'forms', items : [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',   
+	        'HiddenField' ] },  
+	    ‘/’,  
+	    { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },  
+	    { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv',  
+	    '-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] },  
+	    { name: 'links', items : [ 'Link','Unlink','Anchor' ] },  
+	    { name: 'insert', items : [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe' ] },  
+	    ‘/’,  
+	    { name: 'styles', items : [ 'Styles','Format','Font','FontSize' ] },  
+	    { name: 'colors', items : [ 'TextColor','BGColor' ] },  
+	    { name: 'tools', items : [ 'Maximize', 'ShowBlocks','-','About' ] }  
 	];
 	config.font_names='宋体/宋体;黑体/黑体;仿宋/仿宋_GB2312;楷体/楷体_GB2312;隶书/隶书;幼圆/幼圆;微软雅黑/微软雅黑;'+ config.font_names;
-	config.removeButtons = 'Source,Indent,Outdent,Unlink,Styles,Format,Label,Image,Find,Anchor,Underline,Strike,Subscript,Superscript,Bidiltr,About,Form,Specialchar';//Source,
+	//Source
+	config.removeButtons = 'Indent,Outdent,Unlink,Styles,Format,Label,Image,Find,Anchor,Underline,Strike,Subscript,Superscript,Bidiltr,About,Form,Specialchar';//Source,
 	config.removeDialogTabs = 'link:advanced';
 	config.uiColor = "#e5e5e5";
 	config.allowedContent=true;
-	config.baseFloatZIndex = 10; 
+	config.baseFloatZIndex = 10;
 	//键入“Enter”是<p>标签，而“Shift + Enter”是<br />标签，如果想要修改这个设定可以在
 	////编辑器中回车产生的标签 
 	//config.enterMode = CKEDITOR.ENTER_P; //可选：CKEDITOR.ENTER_BR或CKEDITOR.ENTER_DIV 
 	config.enterMode = CKEDITOR.ENTER_BR;
 	config.shiftEnterMode = CKEDITOR.ENTER_P;
 	//工具栏是否可以被收缩 
-	//config.toolbarCanCollapse = true; 
+	config.toolbarCanCollapse = true; 
 	//工具栏的位置 
 	//config.toolbarLocation = 'top';//可选：bottom 
 	//工具栏默认是否展开 

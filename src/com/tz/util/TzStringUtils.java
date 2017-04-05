@@ -14,7 +14,7 @@ public class TzStringUtils {
 	/**
 	 * 将一个日期转换成String 
 	 * 方法名：getDateString<BR>
-	 * 创建人：xuchengfei <BR>
+	 * 创建人：maerhuan <BR>
 	 * 时间：2014年8月11日-下午9:59:14 <BR>
 	 * 
 	 * @param date
@@ -30,7 +30,7 @@ public class TzStringUtils {
 
 	/**
 	 * 将日期字符串转换成Date 方法名：getDateString<BR>
-	 * 创建人：xuchengfei <BR>
+	 * 创建人：maerhuan <BR>
 	 * 时间：2014年8月11日-下午10:04:06 <BR>
 	 * 
 	 * @param dateString
@@ -51,7 +51,7 @@ public class TzStringUtils {
 	 * 
 	 * 将小数格式化成字符串，会进行四舍五入 如：3656.4554===结果:3656.46<BR>
 	 * 方法名：formatDoubleToString<BR>
-	 * 创建人：xuchengfei <BR>
+	 * 创建人：maerhuan <BR>
 	 * 时间：2014年8月12日-下午9:12:01 <BR>
 	 * 
 	 * @param dou
@@ -100,7 +100,7 @@ public class TzStringUtils {
 	/**
 	 * 非空判断
 	 * 方法名：isNotEmpty<BR>
-	 * 创建人：xuchengfei <BR>
+	 * 创建人：maerhuan <BR>
 	 * 时间：2014年8月12日-下午9:36:18 <BR>
 	 * @param str
 	 * @return boolean<BR>
@@ -115,7 +115,7 @@ public class TzStringUtils {
 	/**
 	 * 百分比转换
 	 * 方法名：getPercent<BR>
-	 * 创建人：xuchengfei <BR>
+	 * 创建人：maerhuan <BR>
 	 * 时间：2014年8月12日-下午9:50:46 <BR>
 	 * @param num
 	 * @param totalCount
@@ -135,7 +135,7 @@ public class TzStringUtils {
 	/**
 	 * 百分比转换
 	 * 方法名：getPercent<BR>
-	 * 创建人：xuchengfei <BR>
+	 * 创建人：maerhuan <BR>
 	 * 时间：2014年8月12日-下午9:50:46 <BR>
 	 * @param num 当前的数字
 	 * @param totalCount 总数
@@ -157,7 +157,7 @@ public class TzStringUtils {
 	/**
 	 *冒泡排序方法,如果为true那就是降序，false那么久是升序 
 	 * 方法名：sorts<BR>
-	 * 创建人：xuchengfei <BR>
+	 * 创建人：maerhuan <BR>
 	 * 时间：2014年8月12日-下午11:35:55 <BR>
 	 * @param datas
 	 * @param flag
@@ -331,6 +331,72 @@ public class TzStringUtils {
 	 */
 	public static String saltPassword(String slatString,String password){
 		return md5Base64(slatString+password);
+	}
+	/**
+	 * 
+	 * 判断哟个字符串是否是全小写</br>
+	 * com.tz.util </br>
+	 * 方法名：testAllUpperCase </br>
+	 * 创建人：maerhuan </br>
+	 * 时间：2017年3月19日-上午12:12:47 </br>
+	 * @param str
+	 * @return boolean
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	public static boolean testAllUpperCase(String str){
+		for(int i=0; i<str.length(); i++){
+			char c = str.charAt(i);
+			if(c >= 97 && c <= 122) {
+				return false;
+			}
+		}
+		//str.charAt(index)
+		return true;
+	}
+	/**
+	 * 
+	 * 重复拼接字符串</br>
+	 * com.tz.util </br>
+	 * 方法名：repeatStr </br>
+	 * 创建人：maerhuan </br>
+	 * 时间：2017年3月19日-上午12:16:03 </br>
+	 * @param str
+	 * @param repeat
+	 * @return String
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	public static String repeatStr(String str,int repeat){
+		int len = str.length();   
+		StringBuilder builder = new StringBuilder(len * repeat);  
+		for(int i=0; i<repeat; i++){  
+		  builder.append(str);  
+		}  
+		
+		return builder.toString();
+	}
+	/**
+	 * 
+	 * 统计一个字符在字符串中出现的次数</br>
+	 * com.tz.util </br>
+	 * 方法名：counter </br>
+	 * 创建人：maerhuan </br>
+	 * 时间：2017年3月19日-上午12:17:59 </br>
+	 * @param str
+	 * @param c
+	 * @return int
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	public static int counter(String str, char c) {
+		int count = 0;
+		for (int i = 0; i < str.length(); i++) {
+			if (str.charAt(i) == c) {
+				count++;
+			}
+		}
+		return count;
 	}
 	
 	public static void main(String[] args) {

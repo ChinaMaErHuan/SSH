@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+  <style>
+	#box{width:640px;height:333px;}
+  </style>
+ </head>
+ <body>
+
+
+ 图片本地化
+
+ 
+ 文件图片上传
+
+
+  <div id="box" style="width:300px;height:160px;background:red;color:#fff;margin:30px;">
+	<span class="items">1111</span>
+	<span class="items">2222</span>
+	<span class="items">3333</span>
+  </div>
+
+
+  <div id="console" style="width:700px;"></div>
+  
+ 
+  <a href="javascript:void(0);" id="clickme" onclick="tclick()">点我</a>
+  <script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+  <script type="text/javascript">
+		
+		var boxDom = document.getElementById("box");
+		alert(boxDom.outerHTML);//boxDom以及boxDom里面的html代码
+		alert(boxDom.textContent);//111 222 333 带有格式
+		alert(boxDom.innerText);//而是使用textContent 
+		alert(boxDom.innerHTML);//html()
+		/*	
+		var html = "";
+		for(var k in document){
+			html+="<div>"+(k+"==="+boxDom[k])+"</div>";
+		}
+		$("#console").html(html);
+		*/
+	
+		//事件是覆盖还是叠加
+		/*$("#clickme").on("click",function(){
+			alert(1);
+		});
+		function tclick(){
+			alert(2);
+		};
+
+		$(".items").click(function(){
+			alert(3)
+		});*/
+		//javascript所有dom事件是事件队列，每次绑定一次事件（同一事件）都会往这个队列里面追加，而不是覆盖
+		//A: 1 2 3  B:3 
+		//事件的冒泡怎么解决。什么事件冒泡
+		/*
+		init();
+		function init(){	
+			//$(".items").unbind("click") 它把你的事件队列里面的事件全部清空
+			//$(".items").unbind("click").click(function(){
+			//	alert(this.innerHTML);
+			//});
+			$(".items").off("click").on("click",function(){
+				alert(this.innerHTML);
+			});
+		};
+		
+		function tclick(){
+			$("#box").prepend("<div class='items'>22222</div>");
+			init();
+		};*/
+
+		
+		//事件的目标是什么含义.事件里event--事件的事件源--fn--event栈
+		//dom--继承event栈(鼠标，)
+
+		//判别你点击的是左击还右击或者滚轮，
+		
+		/*$("#box").append('<span class="items">22222</span>');
+		$("#box").click(function(event){
+
+			alert(event.target === this);
+		});*/
+
+		//赶紧去arry老课堂，
+		/*var a = "100";
+		var c = 100;
+		alert(a==c);//true 还是false	
+		alert(a===c);相当于(a==c && typeof a == typeof c)*/
+		
+	
+		//==是值比较 这个相当于java的equals
+		//===值比较并且数据类型比较 就java的==
+				
+		//事件的委托是什么概念。javascript如果实现委托
+		
+		//on("click","#id/.class/tagName/javascriptdom/jqueryObj",)
+
+		function kekeon(source,targetDom,eventType,callback){
+			document.getElementById(source)["on"+eventType] = function(event){
+				//一些列的判断
+				var len = targetDom.length;
+				while(len--){//最高效的for循环
+					if(event.target === targetDom[len]){
+						if(callback)callback(event.target);
+						break;
+					}	
+				}
+			};	
+		};
+
+
+		
+
+
+
+			
+
+
+
+
+		//querySelector===function querySelector() { [native code] }
+		//querySelectorAll
+		//querySelector("div")
+
+		//getElementById("id");=== querySelector("#id")
+		//getElementsByClassName("items")等价于querySelectorAll(".items")
+		//var length = document.querySelectorAll(".items").length;
+		//var len = document.getElementsByClassName("items").length;
+		kekeon("box",document.querySelectorAll(".items"),"click",function(obj){
+			alert(obj.innerHTML);
+		})
+
+
+
+		
+
+
+
+
+
+
+
+
+
+		
+		/*
+		var obj = weiwei("tzui_upcontent");
+		
+		obj.trigger("click");
+		
+		function weiwei(id){//id=tzui_upcontent
+			var doc = document.getElementById(id);
+			return {
+				trigger:function(eventType){
+					doc["on"+eventType]();
+				}
+			}
+		};*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//javascript事件和开发一些注意点
+	//document.getElementById("box").onclick = function(){
+	//	alert(1);
+	//};
+
+	//var boxDom = document.getElementById("box");
+	//boxDom是一个javascript对象
+	/*boxDom["onclick"] = function(){
+		alert(11111);
+	};*/
+
+	//function是一种数据类型
+	//String Number  Function undefined (null,Date Array {})对象
+	//var fnType = boxDom["onclick"];
+	//fnType();
+
+	//函数的执行
+	//javascript的对象的调用和赋值的方式哪些
+	//学会封装
+	/*trigger("box","click");
+	function trigger(targetId,eventType){
+		var boxDom = document.getElementById(targetId);
+		boxDom["on"+eventType]();
+	}*/
+
+
+	/*
+	function tclick(){
+		$("box").trigger("mouseover");
+	}
+
+	var $ = function(id){
+		var dom = document.getElementById(id);
+		return {
+			trigger:function(eventType){
+				dom["on"+eventType]();
+			}
+		};
+	}*/
+
+
+	
+  </script>
+ </body>
+</html>

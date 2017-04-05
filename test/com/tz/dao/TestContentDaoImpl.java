@@ -28,6 +28,7 @@ import com.tz.core.dao.TzParams;
 import com.tz.dao.content.IContentDao;
 import com.tz.model.Content;
 import com.tz.model.User;
+import com.tz.util.TzDateUtil;
 import com.tz.util.TzGatherContentUtil;
 import com.tz.util.TzPageInfo;
 import com.tz.util.TzStringUtils;
@@ -37,33 +38,37 @@ import com.tz.util.TzStringUtils;
 public class TestContentDaoImpl {
 	@Autowired
 	private IContentDao contentDao;
+	
 	//将抓取下来的数据插入到表中
 	@Test
 	public void insertDataToContent(){
-		String url = "http://news.qq.com/";
-		String filterUrl  = "http://news.qq.com/a/";
+		String url = "http://news.sina.com.cn";
+		String filterUrl  = "http://news.sina.com.cn";
 		//http://www.xinhuanet.com/
 		//第一步：导入解析包jsoup.jar java中的javascript+jquery
 		//第二步：根据URL获取网页源代码。
-		Document document = Jsoup.parse(TzGatherContentUtil.getHtmlResourceByURL(url,"GBK"));//java.net下面api
+		Document document = Jsoup.parse(TzGatherContentUtil.getHtmlResourceByURL(url,"UTF-8"));//java.net下面api
 		//第三步：抓取网页中所有需要的URL
 		Elements links = document.getElementsByTag("a");
 		Set<String> urls = new HashSet<String>();
 		for (Element element : links) {
 			String href = element.attr("href");
-			if(TzStringUtils.isNotEmpty(href) && href.startsWith(filterUrl)){
+			if(TzStringUtils.isNotEmpty(href)&&href.startsWith(filterUrl)){
 				urls.add(href);
 			}
 		}
-		
-		//第四步：解析匹配出来的URL，讲需要的匹配出来
+//		for (String string : urls) {
+//			System.out.println(string);
+//		}
+//		//第四步：解析匹配出来的URL，讲需要的匹配出来
 		for (String string : urls) {
 			try {
-				Document document2 = Jsoup.parse(TzGatherContentUtil.getHtmlResourceByURL(string,"GBK"));
-				String title = document2.getElementsByTag("h1").get(0).text();
+				Document document2 = Jsoup.parse(TzGatherContentUtil.getHtmlResourceByURL(string,"UTF-8"));
+				String title = document2.getElementById("artibodyTitle").text();
 				String keyword = document2.getElementsByTag("meta").get(2).attr("content");
-				String desc = document2.getElementsByTag("meta").get(3).attr("content");
-				String content = document2.getElementById("Cnt-Main-Article-QQ").html();
+				String tag = document.getElementsByTag("meta").get(3).attr("content");
+				String desc = document2.getElementsByTag("meta").get(4).attr("content");
+				String content = document2.getElementById("artibody").html();
 //				System.out.println(title+"==="+keyword+"==="+desc);
 				Content c = new Content();
 				c.setTitle(title);
@@ -76,10 +81,11 @@ public class TestContentDaoImpl {
 				c.setIsDelete(0);
 				c.setUser(new User(1));
 				c.setSort(1);
+				c.setTag(TzStringUtils.isEmpty(tag)?null:tag);
 				c.setKeyword(keyword);
 				c.setDescription(desc);
 				contentDao.save(c);
-				System.out.println("采集成功--------"+string);
+				System.out.println("采集成功------------------------------------------------------------------------------------");
 			} catch (Exception e) {
 				continue;
 			}
@@ -106,6 +112,12 @@ public class TestContentDaoImpl {
 		content.setAuthor("maerhuan");
 		content.setHit(500);
 		contentDao.updateDefault(content);
+	}
+	
+	@Test
+	public void handle(){
+		String string = TzDateUtil.dateToString(new Date(), "yyyy-MM-dd");
+		System.out.println(string);
 	}
 	
 }

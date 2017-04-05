@@ -17,7 +17,6 @@
 .tz_searchbox,.tz_editbox{
 	border: 1px solid #e5e5e5;
 	height: 30px;
-	margin:20px auto;margin-bottom: 10px;
 	border-top-right-radius: 2px;
 	border-bottom-right-radius: 2px;
 	-webkit-border-top-right-radius: 2px;
@@ -25,42 +24,45 @@
 	-moz-border-top-right-radius: 2px;
 	-moz-border-bottom-right-radius: 2px;
 }
-.tz_editbox{width:320px;}
- .tz_sinp {
-	border: 0px;
-	width: 260px;
-	float: left;
-	height: 30px;
-	text-indent: 0.5em;
-}
-
-.tz_sbtn {
-	display: block;
-	padding-left: 16px;
-	padding-right: 16px;
-	background: #45b3af;
-	cursor: pointer;
-	position: relative;
-	top:-1px;
-	z-index: 1;
-}
-
+.tz_searchbox{margin:20px auto;margin-bottom: 10px;}
+.toolbar{margin:20px auto;margin-bottom: 10px;}
+.toolbar_btn{height:31px;padding-top:1px;padding-left:20px;}
+.tz_editbox{width:400px;}
+.tz_sinp {border: 0px;width: 335px;float: left;height: 30px;text-indent: 0.5em;padding-right: 5px;overflow: hidden;}
+.tz_sbtn {display: block;padding-left: 16px;padding-right: 16px;background: #45b3af;cursor: pointer;position: relative;top:-1px;z-index: 1;}
 .tz_sbtn:hover {
 	background: #34a5a1;
 	transition: all 0.3s ease;
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
 }
-
-.editor {
-	width: 68%;
-}
-
+.editor {width: 68%;}
+#imgbox{background: #f5f5f5;width: 665px;height:360px;position: absolute;top: 0px;left: 0px;display: none;z-index: 100}
+#imgbox li{transition:all ease 0.8s;float: left;padding: 9px;width: 140px;background:#fff;margin:4px;overflow: hidden;}
+#imgbox li:nth-child(4n){margin-right:0px;}
+#imgbox li:hover{-webkit-box-shadow:1px 1px 2px 2px #888;-moz-box-shadow:1px 1px 2px 2px #888;box-shadow:1px 1px 2px 2px #888;}
+#imgbox li img{width: 140px;height: 120px;overflow: hidden;}
+#imgbox .img_con{width:140px;height:22px;margin-top:10px;}
+#imgbox .img_con a{color: #fff;
+    display:inline-block;
+    color:#45b3af;
+    text-align: center;
+    line-height: 20px;
+    width:100px;
+    border: 1px solid #45b3af;
+    -webkit-transition:all ease 0.4s;
+    -moz-transition:all ease 0.4s;
+    transition:all ease 0.4s;
+    }
+    
+#imgbox li a:hover{color:#fff;background:#45b3af;}
+#imgbox .img_con span{display:inline-block;float:right;width:36px;height:20px;text-align:center;color:#45b3af}
 </style>
 </head>
 <body>
 	<div class="container clearfix">
 		<%@include file="/commons/header.jsp"%>
+		<!-- ht_con start  -->
 		<div class="ht_con fl clearfix" style='width:30%;padding:0 10px'>
 			<!-- 搜索框开始 -->
 			<div class="tz_searchbox">
@@ -100,14 +102,164 @@
 				style='position:relative;left:12%;top:4%;'
 				data-maxresults="${page.maxResults}"></div>
 		</div>
+		<!-- end ht_con -->
+		<!-- editor start -->
 		<div class="editor fr clearfix">
-			<div class='tz_editbox'>
-				<input type="text" id="title" class="tz_sinp" placeholder="请输入标题..." /> 
-				<a href="javascript:void(0);" class=" fr tz_sbtn btn" onclick="tz_updateSave(this)">保存</a>
+			<!-- toolbar start -->
+			<div class="toolbar clearfix">
+				<div class="tz_editbox fl">
+					<input type="text" id="title" class="tz_sinp" placeholder="请输入标题..." /> 
+					<a href="javascript:void(0);" id="tz_save" class="fr tz_sbtn btn" onclick="tz_updateSave(this)">保存</a>
+				</div>
+				<div class="toolbar_btn fl">
+					<a href="javascript:void(0);" class="btn tz_sbtn" onclick="tz_localimg(this)">图片本地化</a>
+				</div>
 			</div>
+			<!-- end toolbar -->
 			<textarea id="p_desc" name="description"></textarea>
 		</div>
+		<!-- end editor -->
 	</div>
+	<div id="imgbox"><ul id="tzimgbox"></ul></div>
+	<div class="tmui-overlay" style='display: none;'></div>
+	<script type="text/javascript">
+		
+		function tz_localimg(){
+			//第一步获取编辑器里面的图片
+			var ctext = getEditorText("p_desc");
+			if(isEmpty(ctext)){
+				loading("请选择一个编辑的内容...",3);
+				return false;
+			}
+			//获取编辑器的内容 源代码
+			var content = getEditorHtml("p_desc");
+			//讲编辑器的内容补齐，进行解析
+			var $contentbox = $("<div>"+content+"</div>");
+			//获取图片
+			var imgs = $contentbox.find("img");
+			var length  = imgs.length;
+			if (length>0) {
+				//将图片获取放入数组中，传递给后台。
+				var html = "";
+				imgs.each(function(){
+					var src = $(this).attr("src");
+					if(!isValidatorimg(src)){
+						html +="<li><img src='"+src+"'><div class='img_con'><a href='javascript:void(0);' onclick='tm_downimg(this)'>下载此图片</a><span></span></div></li>";
+					}
+				});
+				if(isEmpty(html)){
+					loading("非常抱歉，没有找到你需要本地化的图片....",4);
+					return false;
+				}
+				
+				var $imgbox = $("#imgbox").removeClass().addClass(tz_animateIn()).show();
+				tzcenter_pos($imgbox);
+				//点击阴影层的时候触发的事件
+				$imgbox.next().click(function(){
+					//imgbox淡出
+					$imgbox.addClass(tz_animateOut(14));
+					//清空
+					$("#tzimgbox").empty();
+					//隐藏阴影层
+ 					$(this).hide();
+				}).show();
+				$("#tzimgbox").html(html);
+			}else{
+				loading("非常抱歉，没有找到你需要本地化的图片....",4);
+			}
+		};
+		
+		//下载图片到本地
+		function tm_downimg(obj){
+			//prev() 获得匹配元素集合中每个元素紧邻的前一个同胞元素
+			//拿到图片的网址
+			var src = $(obj).parent().prev().attr("src");
+			//通过ajax进行异步传输，下载图片放入服务器
+			$(obj).removeAttr("onclick").text("下载中...");
+			$.ajax({
+				type:"post",
+				url:basePath+"/json/content/downimg",
+				data:{"params.img":src},
+				error:function(){
+					loading("下载出现问题了...",4);
+					$(obj).attr("onclick","tm_downimg(this)").text("下载此图片");
+				},
+				success:function(data){
+					//获取编辑器的内容
+					var content = getEditorHtml("p_desc");
+					//内容补齐解析内容
+					var $contentBox = $("<div>"+content+"</div>");
+					//替换内容里面的图片
+					$contentBox.find("img[src='"+src+"']").attr("src",basePath+"/"+data.result);
+					//替换编辑器里的内容
+					setEditorContent("p_desc",$contentBox.html());
+					//下载完一张图片就从imgbox中去除
+					$(obj).parent().parent().remove();
+					//自动save
+					$("#tz_save").trigger("click");
+					tm_closeDiv();
+				}
+			});
+			
+			//window也是一个对象,你要模拟一个javascript的多线程
+			window[src] = setInterval(function(){
+				tz_getPercent(src);
+			},300);
+			
+			
+		};
+		
+		function tz_getPercent(src){
+			$.ajax({
+				type:"post",
+				url:basePath+"/admin/content/imgPercent",
+				data:{"params.img":src},
+				success:function(data){
+					if(data=="100"){
+						clearInterval(window[src]);
+					}
+					$("#tzimgbox").find("img[src='"+src+"']").parent().find("span").html(data);
+				}
+			});
+		};
+		//当全部图片下载完毕以后，关闭弹出层
+		function tm_closeDiv(){
+			var length = $("#tzimgbox").find("li").length;
+			if(length==0){
+				 $("#imgbox").addClass(tz_animateOut()).hide().next().trigger("click");
+			}
+		};
+	
+		//是否是本地图片
+		function isValidatorimg(src){
+			if(src.indexOf(basePath)==-1){//方便扩展
+				return false;
+			}
+			return true;
+		};
+		
+		//图片居中
+		function tzcenter_pos(obj){
+			var top = ($(window).height() - obj.height())/2;
+			var left = ($(window).width() - obj.width())/2;
+			obj.css({top:top,left:left});
+		};
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</script>
+	
 	<script type="text/javascript">
 		$(function() {
 			$(".ht_con").height($(window).height() - 60);
@@ -157,7 +309,6 @@
 		function tz_loadingTemplate(pno, psize, callback) {
 			clearTimeout(timer);
 			timer = setTimeout(function() {
-				//去除所有空格
 				var keyword = $("#keyword").val().trimAll("g");
 				$.ajax({
 					type : "post",
@@ -221,6 +372,7 @@
  					$(obj).text("编辑").attr("onclick", "tz_edit(this)");
 					//将文章id缓存起来
  					$("#title").data("opid",opid).val(data.title);
+					
 					//把文章内容添加到文本编辑器中
  					setEditorContent("p_desc",data.content);
 					}
@@ -228,7 +380,7 @@
 
 		};
 		
-		
+		//更新保存
 		function tz_updateSave(obj){
 			var title = $("#title").val();
 			var ctext = getEditorText("p_desc");
@@ -278,12 +430,12 @@
 							"		</td>"+
 							"	 </tr>");
 						}else{//update
-							loading("更新更新成功!!!",4);
+							loading("更新成功!!!",4);
 							//清空
-							$("#title").removeData("opid").val("");
-							setEditorContent("p_desc","");
-							//级联更改
-							$("#tz-items-"+opid).find(".title").text(title);
+// 							$("#title").removeData("opid").val("");
+// 							setEditorContent("p_desc","");
+							
+// 							$("#tz-items-"+opid).find(".title").text(title);
 						}
 					}
 				}

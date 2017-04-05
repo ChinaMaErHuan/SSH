@@ -16,7 +16,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionContext;
+import com.tz.core.Method;
 import com.tz.core.action.BaseAction;
+import com.tz.core.interceptor.TzRequestMethod;
 import com.tz.model.User;
 import com.tz.service.permission.IPermissionService;
 import com.tz.service.user.IUserService;
@@ -67,6 +69,7 @@ public class LoginAction extends BaseAction {
 	 * @exception
 	 * @since 1.0.0
 	 */
+	@Method(method=TzRequestMethod.POST)
 	public String logined() {
 		if (TzStringUtils.isNotEmpty(account)
 				&& TzStringUtils.isNotEmpty(password)) {

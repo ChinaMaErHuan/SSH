@@ -71,6 +71,7 @@ public class Content implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
+		
 		return id;
 	}
 

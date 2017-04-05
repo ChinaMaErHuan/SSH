@@ -14,18 +14,18 @@ public class TzParams {
 	private String date;
 	private Integer uid;
 
+	private String img;
+
 	public TzParams() {
-		
+
 	}
-	
-	public TzParams(String keyword,String date,Integer uid) {
+
+	public TzParams(String keyword, String date, Integer uid) {
 		this.keyword = keyword;
 		this.date = date;
 		this.uid = uid;
 	}
-	
-	
-	
+
 	public String getKeyword() {
 		return keyword;
 	}
@@ -48,6 +48,14 @@ public class TzParams {
 
 	public void setUid(Integer uid) {
 		this.uid = uid;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 }
