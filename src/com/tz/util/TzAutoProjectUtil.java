@@ -28,12 +28,12 @@ public class TzAutoProjectUtil {
 	//注释 作者
 	private static String author = "maerhuan";
 	//模块
-	private static String description = "学生管理";
+	private static String description = "统计管理";
 	//日期
 	private static String date = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss").format(new Date());
 	//JavaBean
-	private static String entity = "Permission";
-	private static String lowEntity = "permission";
+	private static String entity = "Stat";
+	private static String lowEntity = "stat";
 	
 	//JavaBean存放包
 	public static final String ENTITYPACKAGE="src\\com\\tz\\model\\"; 
@@ -334,18 +334,18 @@ public class TzAutoProjectUtil {
 		// 1.替换模板 中的数据
 		// 2.找到要产生新文件的地方
 		// 3.生成新文件
-//		createEntity();
-//		createDao();
-//		createDaoImpl();
-//		createService();
-//		createServiceImpl();
+		createEntity();
+		createDao();
+		createDaoImpl();
+		createService();
+		createServiceImpl();
 //		createAction();
 //		createList();
 //		String pathString  = "com.tz.model";
 //		String pathString2 = pathString.replaceAll("\\.", "\\\\");
 //		System.out.println(pathString2);
 //		createList();
-		createAction();
+	//createAction();
 	}
 
 }

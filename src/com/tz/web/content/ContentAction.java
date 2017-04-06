@@ -217,7 +217,7 @@ public class ContentAction extends BaseAction {
 			InputStream inputStream = connection.getInputStream();
 			//获取服务器的路径
 //			String uploadPath = ServletActionContext.getRequest().getRealPath("upload");
-			String uploadPath = ServletActionContext.getRequest().getSession().getServletContext().getRealPath("upload");
+			String uploadPath = ServletActionContext.getServletContext().getRealPath("download");
 			String filename = TzDateUtil.dateToString(new Date(), "yyyy-MM-dd");
 			//如果upload不存在就创建
 			File rootFile = new File(uploadPath);

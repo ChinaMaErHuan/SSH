@@ -71,5 +71,11 @@
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
 	</package>
-	
+	<!-- 文件上传 -->
+	<package name="uploadpackage" extends="defaults">
+		<action name="upload/*" method="{1}" class="uploadAction">
+			<result name="{1}">/WEB-INF/pages/upload/{1}.jsp</result>
+			<result name="callback">/WEB-INF/pages/upload/callback.jsp</result>
+		</action>
+	</package>
 </struts>   
