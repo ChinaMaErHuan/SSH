@@ -2004,4 +2004,7 @@ function getTitle(year, month, day) {
 	return title;
 }
 
+$(function(){
+	$(".tzui-tips").tzTip();
+});
 
