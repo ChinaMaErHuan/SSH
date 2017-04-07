@@ -83,7 +83,7 @@
 			<div id="page" class="pagination" data-maxresults="${page.maxResults}"></div>
 		</div>
 	</div>
-	<script type="text/javascript" src="${basePath}/js/admin/tz_channel.js"></script>
+	<script type="text/javascript" src="${basePath}/js/admin/channel/tz_channel.js"></script>
 </body>
 </html>
 

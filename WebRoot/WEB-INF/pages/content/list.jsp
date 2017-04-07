@@ -123,6 +123,6 @@
 	</div>
 	<div id="imgbox"><ul id="tzimgbox"></ul></div>
 	<div class="tmui-overlay" style='display: none;'></div>
-	<script type="text/javascript" src="${basePath}/js/admin/tz_content.js"></script>
+	<script type="text/javascript" src="${basePath}/js/admin/content/tz_content.js"></script>
 </body>
 </html>
