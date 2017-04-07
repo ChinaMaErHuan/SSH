@@ -4,6 +4,11 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.tz.core.dao.BaseDaoImpl;
@@ -11,6 +16,7 @@ import com.tz.core.dao.TzParams;
 import com.tz.dao.stat.IStatDao;
 import com.tz.model.Stat;
 import com.tz.util.TzPageInfo;
+import com.tz.util.TzStringUtils;
 
 /**
  * 
@@ -39,8 +45,15 @@ public class StatDaoImpl extends BaseDaoImpl<Stat,Integer> implements IStatDao{
 	*/
 	@Override
 	public List<Stat> findStats(TzParams params, TzPageInfo pageInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		DetachedCriteria detachedCriteria = getCurrentDetachedCriteria();
+		if(params!=null){
+			if (TzStringUtils.isNotEmpty(params.getKeyword())) {
+				//添加查询条件
+				detachedCriteria.add(Restrictions.like("name", params.getKeyword(), MatchMode.ANYWHERE));
+			}
+		}
+		detachedCriteria.addOrder(Order.asc("createTime")).add(Restrictions.eq("isDelete", 0));
+		return findByDetachedCriteria(detachedCriteria, pageInfo);
 	}
 
 	/**
@@ -56,8 +69,16 @@ public class StatDaoImpl extends BaseDaoImpl<Stat,Integer> implements IStatDao{
 	*/
 	@Override
 	public int countStat(TzParams params) {
-		// TODO Auto-generated method stub
-		return 0;
+		DetachedCriteria detachedCriteria = getCurrentDetachedCriteria();
+		if (params!=null) {
+			if (TzStringUtils.isNotEmpty(params.getKeyword())) {
+				//添加查询条件
+				detachedCriteria.add(Restrictions.like("name", params.getKeyword(), MatchMode.ANYWHERE));
+			}
+		}
+		detachedCriteria.setProjection(Projections.count("id")).add(Restrictions.eq("isDelete", 0));
+		Number number = (Number) detachedCriteria.getExecutableCriteria(getSession()).uniqueResult();
+		return number==null?0:number.intValue();
 	}
 
 }

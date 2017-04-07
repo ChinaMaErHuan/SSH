@@ -51,7 +51,7 @@
 				<thead>
 					<tr>
 						<th>序号</th>
-						<th class="w180">标题</th>
+						<th class="w180">名字</th>
 						<th>点击数</th>
 		          		<th>创建时间</th>
 		          		<th>状态</th>
@@ -65,7 +65,7 @@
 			<div id="page" class="pagination" data-maxresults="${page.maxResults}"></div>
 		</div>
 	</div>
-	<script type="text/javascript" src="${basePath}/js/admin/channel/tz_comment.js"></script>
+	<script type="text/javascript" src="${basePath}/js/admin/comment/tz_comment.js"></script>
 </body>
 </html>
 

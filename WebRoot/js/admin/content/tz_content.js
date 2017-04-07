@@ -59,9 +59,8 @@ $(function() {
 						$("#tz_tbody").html(data);
 						tz_keywordHighlighter(keyword);//关键字高亮
 						if (callback) {
-							//listTemplate.jsp缓存起来的
-							var count = $("#itemCount").val();
-							callback(count);
+							var itemcount = $("#tz_tbody").find("tr").eq(0).data("itemcount");
+							callback(itemcount);
 						}
 					}
 				});

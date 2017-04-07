@@ -12,8 +12,8 @@ $("#tz_tbody").on("click",".tmui-status",function(){
 		loading("数据执行中，请稍后...");
 		$.ajax({
 			type:"post",
-			url:basePath+"/json/comment/update",
-			data:{"comment.id":opid,"comment.status":mark},
+			url:basePath+"/json/stat/update",
+			data:{"stat.id":opid,"stat.status":mark},
 			success:function(data){
 				 $this.data("status",mark).toggleClass((mark==0?"red green":"green red"))
 				 .text((mark==0?"未发布":"发布"));
@@ -79,7 +79,7 @@ function tz_loadingTemplate(pno,psize,callback){
 	$.ajax({
 		type:"post",
 		data:{"page.firstResult":(pno*psize),"page.maxResults":psize,"params.keyword":keyword},
-		url:basePath+"/admin/comment/listTemplate",
+		url:basePath+"/admin/stat/listTemplate",
 		success:function(data){
 			$("#tz_tbody").html(data);//等元素加载到页面里面,已经真是存在才能够绑定事件.一定是要你的元素在你的dom节点上存在了才能绑定事件
 			$(".tzui-tips").tzTip();
@@ -109,14 +109,14 @@ function tz_delete(obj){
 	$.tzConfirm({title:"删除提示",content:"您确定删除吗?",callback:function(ok){
 	if(ok){
 		var opid = $(obj).data("opid");
-		$.tzAjax.request({model:"json/comment",method:"delete",callback:function(data){
+		$.tzAjax.request({model:"json/stat",method:"delete",callback:function(data){
 			if(data.result=="success"){
 				loading("删除成功!",4);
 				$("#tz-items-"+opid).remove();
 			}else{
 				loading("删除失败!",4);
 			}
-		}},{"comment.id":opid});
+		}},{"stat.id":opid});
 		}
 	}});
 };

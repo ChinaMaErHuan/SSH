@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@include file="/commons/taglib.jsp" %>
-<tz:if test="${tz:size(channels)==0}">
+<tz:if test="${tz:size(comments)==0}">
 <tr>
 	<td colspan="6"><h1>抱歉！暂无数据^_^o^_^o^_^</h1></td>
 </tr>

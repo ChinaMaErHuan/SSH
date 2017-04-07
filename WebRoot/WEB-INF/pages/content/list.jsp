@@ -68,7 +68,7 @@
 			<!-- 搜索框开始 -->
 			<div class="tz_searchbox">
 				<input type="text" class="tz_sinp fl" id="keyword"
-					placeholder="请输入关键字..."> <a class="tz_sbtn btn fr"
+					placeholder="请输入关键字..." > <a class="tz_sbtn btn fr"
 					id="tzui_search" onclick="tz_search(this)">搜索</a>
 			</div>
 			<table class="news_list">
@@ -80,23 +80,7 @@
 					</tr>
 				</thead>
 				<tbody id="tz_tbody" data-count="${page.itemCount}">
-					<tz:if test="${tz:size(contents)==0}">
-						<tr>
-							<td colspan="3"><h1>抱歉！暂无数据^_^o^_^o^_^</h1></td>
-						</tr>
-						<tz:else />
-						<c:forEach items="${contents}" var="content">
-							<tr id="tz-items-${content.id}">
-								<td>${content.id}</td>
-								<td class="tmui-ellipsis w180 title">${content.title}</td>
-								<!--<td class="tzui-tips" tip="添加的时间是:${content.createTime}">${tz:formateDate(content.createTime,"yyyy年MM月dd日")}</td> -->
-								<td><a href="javascript:void(0);" class="edit_w"
-									data-opid="${content.id}" onclick="tz_edit(this)">编辑</a> <a
-									href="javascript:void(0);" data-opid="${content.id}"
-									onclick="tz_delete(this)">删除</a></td>
-							</tr>
-						</c:forEach>
-					</tz:if>
+					<jsp:include page="listTemplate.jsp"></jsp:include>
 				</tbody>
 			</table>
 			<div id="page" class="pagination"

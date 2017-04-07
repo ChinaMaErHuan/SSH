@@ -23,10 +23,10 @@
 	           			<tz:permission method="list" model="channel"><li><a href="${basePath}/admin/channel/list">栏目管理</a></li></tz:permission>
 	           		</tz:if>
 	           		
-	           		<tz:if test="${tz:indexOf(pageContext.request.requestURI,'interaction/list')!=-1}">
-			            <tz:permission method="list" model="interaction"><li class="select"><a href="javascript:void(0);">互动管理</a></li></tz:permission>
+	           		<tz:if test="${tz:indexOf(pageContext.request.requestURI,'comment/list')!=-1}">
+			            <tz:permission method="list" model="comment"><li class="select"><a href="javascript:void(0);">互动管理</a></li></tz:permission>
 	           		<tz:else/>
-	           			<tz:permission method="list" model="interaction"><li><a href="${basePath}/admin/interaction/list">互动管理</a></li></tz:permission>
+	           			<tz:permission method="list" model="comment"><li><a href="${basePath}/admin/comment/list">互动管理</a></li></tz:permission>
 	           		</tz:if>
 	           		
 	           		<tz:if test="${tz:indexOf(pageContext.request.requestURI,'resource/list')!=-1}">

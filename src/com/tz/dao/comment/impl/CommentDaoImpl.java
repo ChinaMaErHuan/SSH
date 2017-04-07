@@ -52,7 +52,7 @@ public class CommentDaoImpl extends BaseDaoImpl<Comment,Integer> implements ICom
 				detachedCriteria.add(Restrictions.like("name", params.getKeyword(), MatchMode.ANYWHERE));
 			}
 		}
-		detachedCriteria.addOrder(Order.desc("createTime")).add(Restrictions.eq("isDelete", 0));
+		detachedCriteria.addOrder(Order.asc("createTime")).add(Restrictions.eq("isDelete", 0));
 		return findByDetachedCriteria(detachedCriteria, pageInfo);
 	}
 
