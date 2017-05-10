@@ -63,7 +63,8 @@ public class Content implements java.io.Serializable {
 	private Date createTime;// 创建时间
 	private Date updateTime;// 更新时间
 	private User user;// 操作用户
-
+	private Channel channel;
+	
 	public Content() {
 
 	}
@@ -252,9 +253,11 @@ public class Content implements java.io.Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	// 在页面端取值：2011-04-12 22:51:34.0
+	//TemporalType.DATE 2011-04-12
+	//TemporalType.TIME 22：51：34.0
 	@Column(name = "create_time", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
 	public Date getCreateTime() {
 		return createTime;
@@ -283,5 +286,18 @@ public class Content implements java.io.Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	@JSON(serialize=false)
+	@ManyToOne
+	@JoinColumn(name="c_channel_id")
+	public Channel getChannel() {
+		return channel;
+	}
+
+	public void setChannel(Channel channel) {
+		this.channel = channel;
+	}
+	
+	
 
 }

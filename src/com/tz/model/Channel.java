@@ -1,17 +1,24 @@
 package com.tz.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.apache.struts2.json.annotations.JSON;
+import org.hibernate.annotations.Where;
 
 /**
  * 
@@ -32,9 +39,13 @@ public class Channel implements java.io.Serializable {
 	private String description;// 描述 seo
 	private Integer isDelete;// 删除状态0未删除1删除
 	private Integer status;// 0未发布1发布
+	private String logo;//栏目logo
+	private Integer sort;//排序号
 	private Date createTime;// 创建时间
 	private Date updateTime;// 更新时间
 	private User user;// 操作用户
+	private Channel parent;//根栏目 主外键管理
+	private List<Channel> list = new ArrayList<Channel>(0);//子类 自身映射
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -99,6 +110,24 @@ public class Channel implements java.io.Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	
+	@Column(name="logo",length=100)
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+	
+	@Column(name="sort")
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
 
 	@Column(name = "create_time", columnDefinition = "timestamp")
 	public Date getCreateTime() {
@@ -128,4 +157,27 @@ public class Channel implements java.io.Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "parent_id")
+	public Channel getParent() {
+		return parent;
+	}
+
+	public void setParent(Channel parent) {
+		this.parent = parent;
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parent")
+	@Where(clause="is_delete = 0 ")//必须是表中的字段
+	@OrderBy("sort asc")//具体类的属性名100 1000 1000
+	public List<Channel> getList() {
+		return list;
+	}
+
+	public void setList(List<Channel> list) {
+		this.list = list;
+	}
+	
+	
 }

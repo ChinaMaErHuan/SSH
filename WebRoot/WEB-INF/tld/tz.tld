@@ -31,6 +31,24 @@
 	</tag>
 	
 	<tag>
+		<description>栏目标签</description>
+		<name>channelList</name>
+		<tag-class>com.tz.core.tag.TzChannelListTag</tag-class>
+		<body-content>scriptless</body-content> 
+		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>	
+		<attribute>
+			<name>pid</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>	
+	</tag>
+	
+	
+	<tag>
 		<description>if标签</description>
 		<name>if</name>
 		<tag-class>com.tz.core.tag.TmIfTag</tag-class>

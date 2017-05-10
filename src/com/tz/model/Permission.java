@@ -55,7 +55,7 @@ public class Permission implements Serializable {
 	private Integer isDelete;//删除状态0未删除1删除
 	private Date createTime;//创建时间
 	private Date updateTime;//更新时间
-	private Permission parent;// 定义个根权限
+	private Permission parent;//定义个根权限
 	private List<Permission> permissions = new ArrayList<Permission>(0);
 
 	public Permission() {

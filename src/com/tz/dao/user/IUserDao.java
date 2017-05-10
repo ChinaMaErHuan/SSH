@@ -18,5 +18,5 @@ public interface IUserDao extends IBaseDao<User, Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public User findExitUser(String account,String password);
+	 User findExitUser(String account,String password);
 }

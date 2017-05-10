@@ -30,7 +30,7 @@ public interface ICommentDao extends IBaseDao<Comment,Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public List<Comment> findComments(TzParams params,TzPageInfo pageInfo);
+	 List<Comment> findComments(TzParams params,TzPageInfo pageInfo);
 	/**
 	 * 
 	 * 计算所有的评论总数</br>
@@ -43,5 +43,5 @@ public interface ICommentDao extends IBaseDao<Comment,Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public int countComment(TzParams params);
+	 int countComment(TzParams params);
 }

@@ -15,6 +15,7 @@ public class TzParams {
 	private Integer uid;
 
 	private String img;
+	private Integer channelId;
 
 	public TzParams() {
 
@@ -57,5 +58,14 @@ public class TzParams {
 	public void setImg(String img) {
 		this.img = img;
 	}
+
+	public Integer getChannelId() {
+		return channelId;
+	}
+
+	public void setChannelId(Integer channelId) {
+		this.channelId = channelId;
+	}
+	
 
 }

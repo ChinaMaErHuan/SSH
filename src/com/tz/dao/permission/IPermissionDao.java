@@ -27,7 +27,7 @@ public interface IPermissionDao extends IBaseDao<Permission, Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public List<Object[]> findPermissionByUserId(Integer userId);
+	 List<Object[]> findPermissionByUserId(Integer userId);
 	/**
 	 * 
 	 * 查询所有的根目录</br>
@@ -39,7 +39,7 @@ public interface IPermissionDao extends IBaseDao<Permission, Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public List<Permission> findRoot();
+	 List<Permission> findRoot();
 	/**
 	 * 
 	 * 根据父ID查询所有的子目录</br>
@@ -52,5 +52,5 @@ public interface IPermissionDao extends IBaseDao<Permission, Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public List<Permission> findChildrens(Integer parentId);
+	 List<Permission> findChildrens(Integer parentId);
 }

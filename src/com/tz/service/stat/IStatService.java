@@ -30,7 +30,7 @@ public interface IStatService extends IBaseService<Stat,Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public List<Stat> findStats(TzParams params,TzPageInfo pageInfo);
+	 List<Stat> findStats(TzParams params,TzPageInfo pageInfo);
 	/**
 	 * 
 	 * 计算总数</br>
@@ -43,5 +43,5 @@ public interface IStatService extends IBaseService<Stat,Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public int countStat(TzParams params);
+	 int countStat(TzParams params);
 }

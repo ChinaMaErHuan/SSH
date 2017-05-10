@@ -81,4 +81,55 @@ public class ChannelDaoImpl extends BaseDaoImpl<Channel,Integer> implements ICha
 		return number==null?0:number.intValue();
 	}
 
+	/**
+	 * 查询根栏目</br>
+	 * com.tz.dao.channel.impl </br>
+	 * 方法名：findRootChannels </br>
+	 * 创建人：maerhuan </br>
+	 * 时间：2017年5月10日-上午12:30:50 </br>
+	 * @param params
+	 * @param pageInfo
+	 * @return
+	 * @exception 
+	 * @since  1.0.0
+	*/
+	@Override
+	public List<Channel> findRootChannels(TzParams params, TzPageInfo pageInfo) {
+		DetachedCriteria detachedCriteria = getCurrentDetachedCriteria();
+		if(params!=null){
+			if(TzStringUtils.isNotEmpty(params.getKeyword())){
+				detachedCriteria.add(Restrictions.like("name", params.getKeyword(),MatchMode.ANYWHERE));
+			}
+		}
+		detachedCriteria.addOrder(Order.desc("createTime"));
+		detachedCriteria.add(Restrictions.eq("isDelete",0));
+		return findByDetachedCriteria(detachedCriteria,pageInfo);
+	}
+
+	/**
+	 * 求总数</br>
+	 * com.tz.dao.channel.impl </br>
+	 * 方法名：countRootChannel </br>
+	 * 创建人：maerhuan </br>
+	 * 时间：2017年5月10日-上午12:30:50 </br>
+	 * @param params
+	 * @return
+	 * @exception 
+	 * @since  1.0.0
+	*/
+	@Override
+	public int countRootChannel(TzParams params) {
+		DetachedCriteria detachedCriteria = getCurrentDetachedCriteria();
+		if(params!=null){
+			if(TzStringUtils.isNotEmpty(params.getKeyword())){
+				detachedCriteria.add(Restrictions.like("name", params.getKeyword(),MatchMode.ANYWHERE));
+			}
+		}
+		detachedCriteria.add(Restrictions.isNull("parent.id"));
+		detachedCriteria.add(Restrictions.eq("isDelete",0));
+		detachedCriteria.setProjection(Projections.count("id"));
+		Number number = (Number)detachedCriteria.getExecutableCriteria(getSession()).uniqueResult();
+		return number==null?0:number.intValue();
+	}
+
 }

@@ -30,7 +30,7 @@ public interface IChannelDao extends IBaseDao<Channel,Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public List<Channel> findChannels(TzParams params,TzPageInfo pageInfo);
+	 List<Channel> findChannels(TzParams params,TzPageInfo pageInfo);
 	/**
 	 * 
 	 * 计算所有的栏目</br>
@@ -43,5 +43,32 @@ public interface IChannelDao extends IBaseDao<Channel,Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public int countChannel(TzParams params);
+	 int countChannel(TzParams params);
+	 /**
+	  * 
+	  * 查询根栏目</br>
+	  * com.tz.dao.channel </br>
+	  * 方法名：findRootChannels </br>
+	  * 创建人：maerhuan </br>
+	  * 时间：2017年5月10日-上午12:29:57 </br>
+	  * @param params
+	  * @param pageInfo
+	  * @return List<Channel>
+	  * @exception 
+	  * @since  1.0.0
+	  */
+	 List<Channel> findRootChannels(TzParams params,TzPageInfo pageInfo);
+	 /**
+	  * 
+	  * 求总数</br>
+	  * com.tz.dao.channel </br>
+	  * 方法名：countRootChannel </br>
+	  * 创建人：maerhuan </br>
+	  * 时间：2017年5月10日-上午12:30:27 </br>
+	  * @param params
+	  * @return int
+	  * @exception 
+	  * @since  1.0.0
+	  */
+	 int countRootChannel(TzParams params);
 }

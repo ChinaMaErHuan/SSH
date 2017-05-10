@@ -31,7 +31,7 @@ public interface IBaseDao<T extends Serializable, PK extends Serializable> {
 	 * @exception
 	 * @since 1.0.0
 	 */
-	public T save(T t);
+	 T save(T t);
 
 	/**
 	 * 根据主键id获取实体</br> com.tz.core.dao </br> 方法名：get </br> 创建人：maerhuan </br>
@@ -43,7 +43,7 @@ public interface IBaseDao<T extends Serializable, PK extends Serializable> {
 	 * @since 1.0.0
 	 */
 
-	public T get(PK id);
+	 T get(PK id);
 
 	/**
 	 * 根据主键id获取实体</br> com.tz.core.dao </br> 方法名：get </br> 创建人：maerhuan </br>
@@ -54,7 +54,7 @@ public interface IBaseDao<T extends Serializable, PK extends Serializable> {
 	 * @exception
 	 * @since 1.0.0
 	 */
-	public T load(PK id);
+	 T load(PK id);
 
 	/**
 	 * 
@@ -66,7 +66,7 @@ public interface IBaseDao<T extends Serializable, PK extends Serializable> {
 	 * @exception
 	 * @since 1.0.0
 	 */
-	public void delete(T entity);
+	 void delete(T entity);
 
 	/**
 	 * 删除</br> com.tz.core.dao </br> 方法名：deleteById </br> 创建人：maerhuan </br>
@@ -77,7 +77,7 @@ public interface IBaseDao<T extends Serializable, PK extends Serializable> {
 	 * @exception
 	 * @since 1.0.0
 	 */
-	public T deleteById(PK id);
+	 T deleteById(PK id);
 
 	/**
 	 * 根据主键更新实体</br> com.tz.core.dao </br> 方法名：update </br> 创建人：maerhuan </br>
@@ -88,9 +88,9 @@ public interface IBaseDao<T extends Serializable, PK extends Serializable> {
 	 * @exception
 	 * @since 1.0.0
 	 */
-	public T update(T entity);
+	 T update(T entity);
 
-	public T updateDefault(T entity);
+	 T updateDefault(T entity);
 	/**
 	 * 
 	 * 查询</br> com.tz.core.dao </br> 方法名：find </br> 创建人：maerhuan </br>
@@ -102,5 +102,5 @@ public interface IBaseDao<T extends Serializable, PK extends Serializable> {
 	 * @exception
 	 * @since 1.0.0
 	 */
-	public List<T> find(String hql, Object... args);
+	 List<T> find(String hql, Object... args);
 }

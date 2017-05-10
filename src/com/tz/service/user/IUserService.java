@@ -12,5 +12,18 @@ package com.tz.service.user;
 import com.tz.model.User;
 
 public interface IUserService {
-	public User findExitUser(String account, String password);
+	/**
+	 * 
+	 * 根据账号密码查询用户</br>
+	 * com.tz.service.user </br>
+	 * 方法名：findExitUser </br>
+	 * 创建人：maerhuan </br>
+	 * 时间：2017年4月23日-下午5:41:24 </br>
+	 * @param account
+	 * @param password
+	 * @return User
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	 User findExitUser(String account, String password);
 }

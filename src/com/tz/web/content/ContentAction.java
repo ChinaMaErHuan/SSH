@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Controller;
 import com.tz.core.Method;
 import com.tz.core.action.BaseAction;
 import com.tz.core.interceptor.TzRequestMethod;
+import com.tz.model.Channel;
 import com.tz.model.Content;
 import com.tz.model.User;
 import com.tz.service.content.IContentService;
@@ -166,7 +168,14 @@ public class ContentAction extends BaseAction {
 	 */
 	public void edit(){//和struts2的ajax无关了
 		Content content2 = contentService.get(id);
-		outObject(content2);
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		Channel channel = content2.getChannel();
+		map.put("id", id);
+		map.put("title", content2.getTitle());
+		map.put("content", content2.getContent());
+		map.put("channelId", channel!=null?channel.getId():null);
+		map.put("channelName", channel!=null?channel.getName():"未知");
+		outObject(map);
 		
 	}
 	/**

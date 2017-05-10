@@ -27,7 +27,7 @@ public interface IPermissionService extends IBaseService<Permission, Integer> {
 	 * @exception
 	 * @since 1.0.0
 	 */
-	public List<Object[]> findPermissionByUserId(Integer userId);
+	 List<Object[]> findPermissionByUserId(Integer userId);
 	/**
 	 * 
 	 * 查询所有的根权限</br>
@@ -39,7 +39,7 @@ public interface IPermissionService extends IBaseService<Permission, Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public  List<HashMap<String, Object>> findRoot();
+	  List<HashMap<String, Object>> findRoot();
 	/**
 	 * 
 	 * 根据父ID查询所有的可以访问的目录</br>
@@ -52,5 +52,5 @@ public interface IPermissionService extends IBaseService<Permission, Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public List<HashMap<String, Object>> findChildrens(Integer parentId);
+	 List<HashMap<String, Object>> findChildrens(Integer parentId);
 }

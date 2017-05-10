@@ -37,7 +37,7 @@ public interface IContentDao extends IBaseDao<Content, Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public List<Content> findContents(TzParams params,TzPageInfo pageInfo);
+	 List<Content> findContents(TzParams params,TzPageInfo pageInfo);
 	/**
 	 * 
 	 * 计算总数</br>
@@ -50,7 +50,29 @@ public interface IContentDao extends IBaseDao<Content, Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public int countCotent(TzParams params);
+	 int countCotent(TzParams params);
+	/**
+	 * 批量新增</br>
+	 * com.tz.dao.content </br>
+	 * 方法名：saveBatch </br>
+	 * 创建人：maerhuan </br>
+	 * 时间：2017年4月23日-下午5:30:05 </br>
+	 * @param contents void
+	 * @exception 
+	 * @since  1.0.0
+	*/
+	void saveBatch(List<Content> contents);
+	/**
+	 * 批量处理更新</br>
+	 * com.tz.dao.content </br>
+	 * 方法名：updateBatch </br>
+	 * 创建人：maerhuan </br>
+	 * 时间：2017年4月23日-下午5:30:52 </br>
+	 * @param contents void
+	 * @exception 
+	 * @since  1.0.0
+	*/
+	void updateBatch(List<Content> contents);
 	
 	
 }

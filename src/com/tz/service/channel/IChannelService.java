@@ -16,7 +16,7 @@ import com.tz.util.TzPageInfo;
  * @version 1.0.0
  *
  */
-public interface IChannelService extends IBaseService<Channel,Integer> {
+ public interface IChannelService extends IBaseService<Channel,Integer> {
 	/**
 	 * 
 	 * 查询分页</br>
@@ -30,7 +30,7 @@ public interface IChannelService extends IBaseService<Channel,Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public List<Channel> findChannels(TzParams params,TzPageInfo pageInfo);
+	 List<Channel> findChannels(TzParams params,TzPageInfo pageInfo);
 	/**
 	 * 
 	 * 计算总数</br>
@@ -43,6 +43,6 @@ public interface IChannelService extends IBaseService<Channel,Integer> {
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public int countChannel(TzParams params);
+	 int countChannel(TzParams params);
 	
 }

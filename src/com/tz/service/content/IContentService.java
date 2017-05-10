@@ -24,7 +24,7 @@ import com.tz.util.TzPageInfo;
  * @version 1.0.0
  *
  */
-public interface IContentService extends IBaseService<Content, Integer>{
+ public interface IContentService extends IBaseService<Content, Integer>{
 	
 	/**
 	 * 
@@ -39,7 +39,7 @@ public interface IContentService extends IBaseService<Content, Integer>{
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public List<Content> findContents(TzParams params,TzPageInfo pageInfo);
+	 List<Content> findContents(TzParams params,TzPageInfo pageInfo);
 	/**
 	 * 
 	 * 统计数量</br>
@@ -52,5 +52,5 @@ public interface IContentService extends IBaseService<Content, Integer>{
 	 * @exception 
 	 * @since  1.0.0
 	 */
-	public int countCotent(TzParams params);
+	 int countCotent(TzParams params);
 }
