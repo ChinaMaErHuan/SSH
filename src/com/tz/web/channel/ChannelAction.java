@@ -42,7 +42,7 @@ public class ChannelAction extends BaseAction {
 	 * @since 1.0.0
 	 */
 	public String list() {
-		channels = channelService.findChannels(params, page);
+		channels = channelService.findRootChannels(params, page);
 		int itemCount = channelService.countChannel(params);
 		page.setItemCount(String.valueOf(itemCount));
 		return LIST;
@@ -58,8 +58,8 @@ public class ChannelAction extends BaseAction {
 	 * @since 1.0.0
 	 */
 	public String listTemplate() {
-		channels = channelService.findChannels(params, page);
-		int itemCount = channelService.countChannel(params);
+		channels = channelService.findRootChannels(params, page);
+		int itemCount = channelService.countRootChannel(params);
 		page.setItemCount(String.valueOf(itemCount));
 		return "listTemplate";
 	}

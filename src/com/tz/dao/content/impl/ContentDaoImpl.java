@@ -55,14 +55,16 @@ public class ContentDaoImpl extends BaseDaoImpl<Content,Integer> implements ICon
 	@Override
 	public List<Content> findContents(TzParams params, TzPageInfo pageInfo) {
 		DetachedCriteria detachedCriteria = getCurrentDetachedCriteria();
-		if (params!=null) {
-			if (TzStringUtils.isNotEmpty(params.getKeyword())) {
-				//添加查询条件
-				detachedCriteria.add(Restrictions.like("title", params.getKeyword(), MatchMode.ANYWHERE));
+		if(params!=null){
+			if(TzStringUtils.isNotEmpty(params.getKeyword())){
+				detachedCriteria.add(Restrictions.like("title", params.getKeyword(),MatchMode.ANYWHERE));
+			}
+			if(params.getChannelId()!=null){
+				detachedCriteria.add(Restrictions.eq("channel.id", params.getChannelId()));
 			}
 		}
-		detachedCriteria.addOrder(Order.desc("createTime")).add(Restrictions.eq("isDelete", 0));
-		return findByDetachedCriteria(detachedCriteria, pageInfo);
+		detachedCriteria.addOrder(Order.desc("createTime"));
+		return findByDetachedCriteria(detachedCriteria,pageInfo);
 	}
 
 	/**
@@ -79,14 +81,16 @@ public class ContentDaoImpl extends BaseDaoImpl<Content,Integer> implements ICon
 	@Override
 	public int countCotent(TzParams params) {
 		DetachedCriteria detachedCriteria = getCurrentDetachedCriteria();
-		if (params!=null) {
-			if (TzStringUtils.isNotEmpty(params.getKeyword())) {
-				//添加查询条件
-				detachedCriteria.add(Restrictions.like("title", params.getKeyword(), MatchMode.ANYWHERE));
+		if(params!=null){
+			if(TzStringUtils.isNotEmpty(params.getKeyword())){
+				detachedCriteria.add(Restrictions.like("title", params.getKeyword(),MatchMode.ANYWHERE));
+			}
+			if(params.getChannelId()!=null){
+				detachedCriteria.add(Restrictions.eq("channel.id", params.getChannelId()));
 			}
 		}
-		detachedCriteria.setProjection(Projections.count("id")).add(Restrictions.eq("isDelete", 0));
-		Number number = (Number) detachedCriteria.getExecutableCriteria(getSession()).uniqueResult();
+		detachedCriteria.setProjection(Projections.count("id"));
+		Number number = (Number)detachedCriteria.getExecutableCriteria(getSession()).uniqueResult();
 		return number==null?0:number.intValue();
 	}
 

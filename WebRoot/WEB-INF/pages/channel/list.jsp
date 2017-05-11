@@ -51,8 +51,10 @@
 				<thead>
 					<tr>
 						<th>序号</th>
+						<th>Logo</th>
 						<th class="w180">标题</th>
 						<th>关键字</th>
+						<th>排序号</th>
 		          		<th>创建时间</th>
 		          		<th>状态</th>
 						<th>操作</th>

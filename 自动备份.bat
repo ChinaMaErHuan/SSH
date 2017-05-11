@@ -1,9 +1,11 @@
 @echo off
-set "Ymd=%date:~,4%%date:~5,2%%date:~8,2%"
-@echo å¼€å§‹ç¨‹åºç›®å½•å¤‡ä»½
-XCOPY E:\ProgramFiles\tomcat\apache-tomcat-7.0.57\webapps\ROOT E:\ç¨‹åºå¤‡ä»½\CMSå†…å®¹ç®¡ç†é¡¹ç›®å¤‡ä»½\back%Ymd%  /y /e /i
-@echo ç¨‹åºç›®å½•å¤‡ä»½å®Œæˆ
-@echo æ­£åœ¨è¿›è¡Œæ•°æ®åº“å¤‡ä»½
-mysqldump --opt -u root --password=147852 tzcms >E:\ç¨‹åºå¤‡ä»½\CMSå†…å®¹ç®¡ç†é¡¹ç›®å¤‡ä»½\back%Ymd%\moon.sql
-@echo æ•°æ®åº“å¤‡ä»½å®ŒæˆE:\moon_%Ymd%.sql
+set datevar=%date:~,4%%date:~5,2%%date:~8,2%
+set ym=%date:~0,4%-%date:~5,2%
+@echo ¿ªÊ¼³ÌĞòÄ¿Â¼±¸·İ
+XCOPY E:\ProgramFiles\tomcat\apache-tomcat-7.0.57\webapps\cms E:\³ÌĞò±¸·İ\CMSÄÚÈİ¹ÜÀíÏîÄ¿±¸·İ\×ÊÔ´ÎÄ¼ş\back%datevar%  /y /e /i
+@echo ³ÌĞòÄ¿Â¼±¸·İÍê³É
+@echo ÕıÔÚ½øĞĞÊı¾İ¿â±¸·İ
+mysqldump  -u root -p 147852 tzcms>E:\³ÌĞò±¸·İ\CMSÄÚÈİ¹ÜÀíÏîÄ¿±¸·İ\Êı¾İ¿â±¸·İ\back%datevar%\tz_cms.sql
+@echo Êı¾İ¿â±¸·İÍê³É E:\³ÌĞò±¸·İ\CMSÄÚÈİ¹ÜÀíÏîÄ¿±¸·İ\Êı¾İ¿â±¸·İ\back%datevar%\tz_cms.sql
 @echo on
+Pause

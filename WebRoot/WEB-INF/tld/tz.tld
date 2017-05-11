@@ -47,6 +47,22 @@
 		</attribute>	
 	</tag>
 	
+	<tag>
+		<description>查询内容实体</description>
+		<name>contentBean</name>
+		<tag-class>com.tz.core.tag.ContentBeanTag</tag-class>
+		<body-content>empty</body-content> 
+		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>	
+		<attribute>
+			<name>cid</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>	
+	</tag>
 	
 	<tag>
 		<description>if标签</description>

@@ -66,5 +66,40 @@ public class ChannelServiceImpl extends BaseServiceImpl<Channel,Integer>  implem
 	public int countChannel(TzParams params) {
 		return getChannelDao().countChannel(params);
 	}
+
+	/**
+	 * 计算所有的根栏目</br>
+	 * com.tz.service.channel.impl </br>
+	 * 方法名：findRootChannels </br>
+	 * 创建人：maerhuan </br>
+	 * 时间：2017年5月10日-下午1:46:32 </br>
+	 * @param params
+	 * @param pageInfo
+	 * @return
+	 * @exception 
+	 * @since  1.0.0
+	*/
+	@Override
+	public List<Channel> findRootChannels(TzParams params, TzPageInfo pageInfo) {
+		
+		return getChannelDao().findRootChannels(params, pageInfo);
+	}
+
+	/**
+	 * 计算所有的根栏目的个数</br>
+	 * com.tz.service.channel.impl </br>
+	 * 方法名：countRootChannel </br>
+	 * 创建人：maerhuan </br>
+	 * 时间：2017年5月10日-下午1:46:32 </br>
+	 * @param params
+	 * @return
+	 * @exception 
+	 * @since  1.0.0
+	*/
+	@Override
+	public int countRootChannel(TzParams params) {
+		return getChannelDao().countRootChannel(params);
+	}
+	
 	
 }

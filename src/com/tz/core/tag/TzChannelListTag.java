@@ -30,7 +30,7 @@ public class TzChannelListTag extends BodyTagSupport{
 	public int doStartTag() throws JspException {
 		ServletContext context = this.pageContext.getServletContext();
 		WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
-		IChannelService channelService = (IChannelService) ctx.getBean("kekechannelservice");
+		IChannelService channelService = (IChannelService) ctx.getBean("channelServiceImpl");
 		if (TzStringUtils.isEmpty(var))var = "channel";
 		List<Channel> channels = channelService.find("from Channel where isDelete = 0 and parent.id is null order by sort asc");
 		if (channels != null && channels.size() > 0) {

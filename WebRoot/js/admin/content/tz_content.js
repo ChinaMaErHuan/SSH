@@ -19,6 +19,42 @@ $(function() {
 					$("#tzui_search").trigger("click");
 				}
 			});
+			
+			//栏目导航
+			$("#boxitems").find(".itemsbox").on("click",function(){
+				$(this).find(".cnt").show().end().siblings().find(".cnt").hide();
+			}).end().find(".channel-items").click(function(){
+				var opid = $(this).find("a").data("opid");
+				$(".channel-items").removeClass("selected");
+				$(this).addClass("selected");
+				$(this).parent().trigger("click");
+				$("#channelname").val(''+$(this).text()+'');
+				$("#channelname").data("opid",opid);
+				tz_loadingTemplate(0,10,function(itemCount){
+					tz_initPage(itemCount);
+				});
+			});
+			//触发执行第一个
+			$("#boxitems").find(".channel-items").eq(0).trigger("click");
+			
+			CKEDITOR.on('instanceReady', function (e) { 
+		          if(e.editor.document.$.addEventListener) 
+		               e.editor.document.$.addEventListener('keydown',keydown,false);
+		          else if(e.editor.document.$.attachEvent)
+		               e.editor.document.$.attachEvent('onkeyup',function(e){keydown(e);});  
+		    });
+			
+			function keydown(){
+				var html = getEditorHtml("p_desc");
+				localStorage.setItem("editorCache", html);
+				localStorage.setItem("title", $("#title").val());
+				localStorage.setItem("cname", $("#channelname").text());
+				localStorage.setItem("cid", $("#channelname").data("opid"));
+				
+			}
+			
+			
+			
 		});
 
 		//每页显示X项

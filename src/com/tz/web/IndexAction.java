@@ -16,6 +16,7 @@ import com.tz.core.action.BaseAction;
 @Controller("indexAction")
 @Scope("prototype")
 public class IndexAction extends BaseAction{
+	
 //	@Method(method=TzRequestMethod.POST)
 	public String execute(){
 		return SUCCESS;

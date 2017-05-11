@@ -45,7 +45,7 @@ public class Channel implements java.io.Serializable {
 	private Date updateTime;// 更新时间
 	private User user;// 操作用户
 	private Channel parent;//根栏目 主外键管理
-	private List<Channel> list = new ArrayList<Channel>(0);//子类 自身映射
+	private List<Channel> channels = new ArrayList<Channel>(0);//子类 自身映射
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -171,13 +171,15 @@ public class Channel implements java.io.Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parent")
 	@Where(clause="is_delete = 0 ")//必须是表中的字段
 	@OrderBy("sort asc")//具体类的属性名100 1000 1000
-	public List<Channel> getList() {
-		return list;
+	public List<Channel> getChannels() {
+		return channels;
 	}
 
-	public void setList(List<Channel> list) {
-		this.list = list;
+	public void setChannels(List<Channel> channels) {
+		this.channels = channels;
 	}
+
+	
 	
 	
 }

@@ -284,7 +284,7 @@ if (typeof(SWFUpload) === "function") {
 	
 	};
 	SWFUpload.speed.formatBytes = function (baseNumber) {
-		var sizeUnits = [1073741824, 1048576, 1024, 1], sizeUnitLabels = ["GB", "MB", "KB", "bytes"];
+		var sizeUnits = [1073741824, 1048576, 1024, 1], sizeUnitLabels = ["GB", "MB", "KB", "B"];
 		return SWFUpload.speed.formatUnits(baseNumber, sizeUnits, sizeUnitLabels, true);
 	
 	};

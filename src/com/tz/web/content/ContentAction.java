@@ -33,7 +33,6 @@ import com.tz.model.Channel;
 import com.tz.model.Content;
 import com.tz.model.User;
 import com.tz.service.content.IContentService;
-import com.tz.util.TzDateUtil;
 import com.tz.util.TzFileUtil;
 import com.tz.util.TzStringUtils;
 
@@ -225,19 +224,14 @@ public class ContentAction extends BaseAction {
 			int totalSize = connection.getContentLength();//网络图片的大小,字节 跑道的100米
 			InputStream inputStream = connection.getInputStream();
 			//获取服务器的路径
-//			String uploadPath = ServletActionContext.getRequest().getRealPath("upload");
-			String uploadPath = ServletActionContext.getServletContext().getRealPath("download");
-			String filename = TzDateUtil.dateToString(new Date(), "yyyy-MM-dd");
+			String uploadPath = ServletActionContext.getRequest().getRealPath("download");
 			//如果upload不存在就创建
 			File rootFile = new File(uploadPath);
 			if(!rootFile.exists())rootFile.mkdirs();
-			//文件夹
-			File file = new File(rootFile, filename);
-			if(!file.exists())file.mkdirs();
 			//获取新的文件名
 			String newname = TzFileUtil.getUUID()+TzFileUtil.getExt(src);
-			//获取磁盘输出流 file(parent,chindren)构造函数免去斜线与反斜线的问题
-			FileOutputStream outputStream = new FileOutputStream(new File(file,newname));
+			//获取磁盘输出流
+			FileOutputStream outputStream = new FileOutputStream(new File(uploadPath,newname));
 			byte[] b = new byte[2048];
 			//输入流
 			BufferedInputStream in = new BufferedInputStream(inputStream);
@@ -249,14 +243,14 @@ public class ContentAction extends BaseAction {
 			while((len = in.read(b))!=-1){//读
 				length += len;//已经下载的长度,小涛跑25米， 25%
 				Thread.sleep(50);
-				//System.out.println("您当前下载了:"+TzStringUtils.getPercent(length, (float)totalSize,"#"));
+				System.out.println("您当前下载了:"+TzStringUtils.getPercent(length, (float)totalSize,"#"));
 				session.setAttribute(src, TzStringUtils.getPercent(length, (float)totalSize,"#"));
 				outputStream.write(b, 0, len);//写
 			}
 			in.close();
 			outputStream.close();//关闭
 			inputStream.close();
-			return "upload"+File.separator+filename+File.separator+newname;
+			return "download/"+newname;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

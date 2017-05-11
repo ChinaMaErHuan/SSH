@@ -44,5 +44,32 @@ import com.tz.util.TzPageInfo;
 	 * @since  1.0.0
 	 */
 	 int countChannel(TzParams params);
+	 /**
+	  * 
+	  * 查询所有的根栏目</br>
+	  * com.tz.service.channel </br>
+	  * 方法名：findRootChannels </br>
+	  * 创建人：maerhuan </br>
+	  * 时间：2017年5月10日-下午1:45:36 </br>
+	  * @param params
+	  * @param pageInfo
+	  * @return List<Channel>
+	  * @exception 
+	  * @since  1.0.0
+	  */
+	  List<Channel> findRootChannels(TzParams params,TzPageInfo pageInfo);
+	  /**
+	   * 
+	   * 计算根栏目个数</br>
+	   * com.tz.service.channel </br>
+	   * 方法名：countRootChannel </br>
+	   * 创建人：maerhuan </br>
+	   * 时间：2017年5月10日-下午1:45:53 </br>
+	   * @param params
+	   * @return int
+	   * @exception 
+	   * @since  1.0.0
+	   */
+	  int countRootChannel(TzParams params);
 	
 }

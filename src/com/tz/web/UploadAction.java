@@ -25,7 +25,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.tz.core.action.BaseAction;
-import com.tz.util.TzDateUtil;
 import com.tz.util.TzFileUtil;
 
 @Controller("uploadAction")
@@ -64,10 +63,6 @@ public class UploadAction extends BaseAction {
 		if(!dirPath.exists()){
 			dirPath.mkdirs();
 		}
-		String filename = TzDateUtil.dateToString(new Date(), "yyyy-MM-dd");
-		//二級文件夹
-		File filePath = new File(dirPath, filename);
-		if(!filePath.exists())filePath.mkdirs();
 		//3:进行io流读写，将本地的图片上传到服务器的上传路基下
 		//对上传文件的重命名
 		String newFileName = generateFileName(fileFileName);
@@ -80,7 +75,7 @@ public class UploadAction extends BaseAction {
 			FileInputStream fis = new FileInputStream(file);
 			inputStream = new BufferedInputStream(fis);
 			//输出流
-			FileOutputStream out = new FileOutputStream(new File(filePath,newFileName));
+			FileOutputStream out = new FileOutputStream(new File(dirPath,newFileName));
 			outputStream = new BufferedOutputStream(out);
 			//以多少开始读取文件的流 文件，
 			byte[] buf = new byte[4096];
@@ -90,14 +85,13 @@ public class UploadAction extends BaseAction {
 			}
 			map.put("name", newFileName);
 			map.put("oldName", fileFileName);
-			map.put("url", uploadPath+File.separator+filename+File.separator+newFileName);
+			map.put("url", "upload/"+newFileName);
 			map.put("size", file.length());
 			map.put("ext", TzFileUtil.getExtNoPoint(fileFileName));
 			map.put("type", fileContentType);
-			map.put("path", uploadPath);
+			map.put("path", "upload");
 			map.put("sizeString", TzFileUtil.countFileSize(file.length()));
 			result = JSONUtil.serialize(map);
-			System.out.println(result);
 		} catch (Exception e) {
 		} finally{
 			try {
@@ -116,7 +110,7 @@ public class UploadAction extends BaseAction {
 	/**
 	 * 文件的重命名
 	 * 方法名：generateFileName
-	 * 创建人：xuchengfei 
+	 * 创建人：maerhuan 
 	 * 时间：2015年5月14日-下午9:45:55 
 	 * @param fileName
 	 * @return String

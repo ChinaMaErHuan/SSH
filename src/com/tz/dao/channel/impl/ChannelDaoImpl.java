@@ -52,7 +52,7 @@ public class ChannelDaoImpl extends BaseDaoImpl<Channel,Integer> implements ICha
 				detachedCriteria.add(Restrictions.like("name", params.getKeyword(), MatchMode.ANYWHERE));
 			}
 		}
-		detachedCriteria.addOrder(Order.asc("createTime")).add(Restrictions.eq("isDelete", 0));
+		detachedCriteria.addOrder(Order.desc("sort")).add(Restrictions.eq("isDelete", 0));
 		return findByDetachedCriteria(detachedCriteria, pageInfo);
 	}
 
@@ -101,8 +101,9 @@ public class ChannelDaoImpl extends BaseDaoImpl<Channel,Integer> implements ICha
 				detachedCriteria.add(Restrictions.like("name", params.getKeyword(),MatchMode.ANYWHERE));
 			}
 		}
-		detachedCriteria.addOrder(Order.desc("createTime"));
+		detachedCriteria.add(Restrictions.isNull("parent.id"));
 		detachedCriteria.add(Restrictions.eq("isDelete",0));
+		detachedCriteria.addOrder(Order.asc("sort"));
 		return findByDetachedCriteria(detachedCriteria,pageInfo);
 	}
 

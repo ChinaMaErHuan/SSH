@@ -160,7 +160,7 @@ $.ajax({
 				"		</td>"+
 				"	 </tr>");
 			}else{
-				loading("更新更新成功!!!");
+				loading("更新成功!!!");
 				$("#title").removeData("opid").val("");
 				setEditorContent("p_desc","");
 				$("#tz-items-"+opid).find(".title").text(title);
@@ -172,7 +172,7 @@ $.ajax({
 
 //删除
 function tz_delete(obj){
-	$.tzConfirm({title:"删除提示",channel:"您确定删除吗?",callback:function(ok){
+	$.tzConfirm({title:"删除提示",content:"您确定删除吗?",callback:function(ok){
 	if(ok){
 		var opid = $(obj).data("opid");
 		$.tzAjax.request({model:"json/channel",method:"delete",callback:function(data){
@@ -186,3 +186,26 @@ function tz_delete(obj){
 		}
 	}});
 };
+//更新排序
+function tm_update_sort(obj){
+	var opid  = $(obj).data("opid"); 
+	var value = obj.value;
+	$.tzAjax.request({model:"json/channel",method:"update",callback:function(data){
+		loading("排序更新成功!",4);
+	}},{"channel.id":opid,"channel.sort":value});
+};
+//控制展开收缩
+function tz_channelexpand(obj){
+	var opid = $(obj).data("opid");
+	var text = $(obj).text();
+	//切换按钮
+	$(".tzui-expand").text("+");
+	$(".tmui-channel-c").hide();
+	if(text=="+"){
+		$(".tz-items-"+opid+"-c").show();
+		$(obj).text("-");
+	}else{
+		$(".tz-items-"+opid+"-c").hide();
+		$(obj).text("+");
+	}
+}

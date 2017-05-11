@@ -16,7 +16,7 @@
 	<div class="container">
 		<%@include file="/commons/header.jsp" %>
 		<div class="ht_con clearfix">
-			<a href="javascript:void(0);" class="add_btn btn">增加新闻</a>
+			<a href="javascript:void(0);" class="add_btn btn">增加新闻${page.itemCount}</a>
 			<div class="add_nr">
 				<div class="row_sty clearfix">
 					<p>新闻标题：</p>

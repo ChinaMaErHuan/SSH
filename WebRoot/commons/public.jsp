@@ -4,4 +4,5 @@
 <script type="text/javascript" src="${basePath}/js/sg/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="${basePath}/js/sg/sgutil.js"></script>
 <script type="text/javascript" src="${basePath}/js/sg/sg.js"></script>
+<script type="text/javascript" src="${basePath}/js/tz_admin.js"></script>
 <script type="text/javascript">var basePath="${basePath}";</script>
