@@ -12,7 +12,7 @@ package com.tz.core.service;
 import java.io.Serializable;
 import java.util.List;
 
-public interface IBaseService<T extends Serializable,PK extends Serializable> {
+public interface IBaseService<T,PK extends Serializable> {
 	/**
 	 * 
 	 * 保存方法</br> com.tz.code.service </br> 方法名：save</br> 创建人：maerhuan </br>

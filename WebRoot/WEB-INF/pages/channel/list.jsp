@@ -9,13 +9,12 @@
 <title>栏目管理</title>
 <%@include file="/commons/public.jsp"%>
 <link rel="stylesheet" type="text/css" href="${basePath}/css/sg.css">
-<link rel="stylesheet" type="text/css"
-	href="${basePath}/css/ht_page.css">
+<link rel="stylesheet" type="text/css" href="${basePath}/css/ht_page.css">
 <script type="text/javascript" src="${basePath}/js/sg/tz_page.js"></script>
 <script type="text/javascript" src="${basePath}/js/ckeditor/ckeditor.js"></script>
 </head>
 <style type="text/css">
-	.tz_searchbox{
+.tz_searchbox{
 	width:400px;
 	border: 1px solid #e5e5e5;
 	height: 30px;
@@ -41,12 +40,15 @@
 	<div class="container">
 		<%@include file="/commons/header.jsp" %>
 		<div id="channelbox" class="ht_con clearfix" style="min-height: 700px;">
+		<a href="${basePath}/admin/channel/add" class="submit btn" style="margin-left: 8px;background:#45b3af">添加栏目</a>
 			<!-- 搜索框开始 -->
 			<div class="tz_searchbox">
 				<input type="text" class="tz_sinp fl" id="keyword"
 					placeholder="请输入关键字..."> <a class="tz_sbtn btn fr"
 					id="tzui_search" onclick="tz_search(this)">搜索</a>
+					
 			</div>
+			
 			<table class="news_list">
 				<thead>
 					<tr>

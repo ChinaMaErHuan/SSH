@@ -2,6 +2,7 @@ package com.tz.service.channel;
 
 import java.util.List;
 
+import com.tz.core.TzLog;
 import com.tz.core.dao.TzParams;
 import com.tz.core.service.IBaseService;
 import com.tz.model.Channel;

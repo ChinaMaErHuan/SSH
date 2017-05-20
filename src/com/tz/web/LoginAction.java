@@ -11,9 +11,12 @@ package com.tz.web;
 
 import java.util.List;
 
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+
+import sun.invoke.empty.Empty;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.tz.core.Method;
@@ -42,6 +45,7 @@ public class LoginAction extends BaseAction {
 	private IPermissionService permissionService;
 	private String account;
 	private String password;
+	private String checkcode;
 
 	/**
 	 * 
@@ -69,27 +73,26 @@ public class LoginAction extends BaseAction {
 	 * @exception
 	 * @since 1.0.0
 	 */
-	@Method(method=TzRequestMethod.POST)
+	//@Method(method = TzRequestMethod.POST)
 	public String logined() {
-		if (TzStringUtils.isNotEmpty(account)
+		String sessionCode = (String) ServletActionContext.getRequest().getSession().getAttribute("code");
+		if(TzStringUtils.isEmpty(sessionCode) || TzStringUtils.isEmpty(sessionCode)){
+			result = "codeNull";
+		}else if (!sessionCode.equalsIgnoreCase(checkcode)) {
+			result = CHECKCODEFAILE;
+		}else if (TzStringUtils.isNotEmpty(account)
 				&& TzStringUtils.isNotEmpty(password)) {
+			System.out.println(TzStringUtils.md5Base64(password));
 			password = TzStringUtils.md5Base64(password);
 			User user = userService.findExitUser(account, password);
 			if (user != null) {
-				ActionContext.getContext().getSession()
-						.put(TzConstanst.SESSION_USERKEY, user);
-				result = SUCCESS;
-				// 获取用户所有的权限
-				List<Object[]> permissionsList = permissionService
-						.findPermissionByUserId(user.getId());
-				// 将权限缓存到session中
-				ActionContext
-						.getContext()
-						.getSession()
-						.put(TzConstanst.PERMISSION_SESSION_USERKEY,
-								permissionsList);
+				ActionContext.getContext().getSession().put(TzConstanst.SESSION_USERKEY, user);
+				result = "success";
+				//获取用户所有的权限
+				List<Object[]> permissions = permissionService.findPermissionByUserId(user.getId());
+				ActionContext.getContext().getSession().put(TzConstanst.PERMISSION_SESSION_USERKEY, permissions);
 			} else {
-				result = FAIL;
+				result = "fail";
 			}
 		} else {
 			result = "empty";
@@ -127,4 +130,13 @@ public class LoginAction extends BaseAction {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getCheckcode() {
+		return checkcode;
+	}
+
+	public void setCheckcode(String checkcode) {
+		this.checkcode = checkcode;
+	}
+
 }

@@ -26,9 +26,13 @@ public class Stat implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;// 主键
-	private String name;// 名称
+	private String className;// 类名
+	private Long timer;// 耗时
+	private String method;// 名称
+	private String name;// 访问模块名称
+	private String log;// 操作的日记描述
+	private String params;// 参数
 	private Integer isDelete;// 删除状态0未删除1删除
-	private Integer status;// 0未发布1发布
 	private Date createTime;// 创建时间
 	private Date updateTime;// 更新时间
 	private User user;// 操作用户
@@ -61,15 +65,6 @@ public class Stat implements java.io.Serializable {
 		this.isDelete = isDelete;
 	}
 
-	@Column(name = "status", length = 1)
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
 	@Column(name = "create_time", columnDefinition = "timestamp")
 	public Date getCreateTime() {
 		return createTime;
@@ -97,5 +92,50 @@ public class Stat implements java.io.Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	@Column(name = "class_name", length = 200)
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	@Column(name = "timer")
+	public Long getTimer() {
+		return timer;
+	}
+
+	public void setTimer(Long timer) {
+		this.timer = timer;
+	}
+
+	@Column(name = "method", length = 50)
+	public String getMethod() {
+		return method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
+	@Column(name = "params",length = 1000)
+	public String getParams() {
+		return params;
+	}
+
+	public void setParams(String params) {
+		this.params = params;
+	}
+
+	@Column(name = "log")
+	public String getLog() {
+		return log;
+	}
+
+	public void setLog(String log) {
+		this.log = log;
 	}
 }

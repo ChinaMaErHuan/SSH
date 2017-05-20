@@ -167,24 +167,27 @@ body {
 					<span class="icon_ok"></span>
 					<p>输入正确，恭喜您登录成功！</p>
 				</div>
-				<div class="box animated bounceIn">
+				
+				<div class="box animated bounceInLeft">
 					<input name="" type="text" id="account" placeholder="请输入账号"
 						maxlength="50" class="user_box" />
-					<div class="user_pic"></div>
+					<div class="user_pic" ></div>
 				</div>
-				<div class="box animated bounceIn">
+				<div class="box animated bounceInRight">
 					<input name="" type="password" id="password" placeholder="请输入密码"
 						maxlength="50" class="user_box" />
 					<div class="password_pic"></div>
 				</div>
 				<div class="yanzheng ">
 					<div class="box animated bounceIn">
-						<input name="" type="text" class="yz_box" placeholder="请输入验证码" style="padding-left:12px;"/>
-						<div class="yz_pic"></div>
+						<input name="" type="text" id="checkcode" class="yz_box" placeholder="请输入验证码" style="padding-left:12px;text-transform:lowercase"/>
+						<div class="yz_pic" style = 'width:59px;height:30px;margin-top:7px;margin-right:3px;text-align:center;'>
+							<img alt="验证码" id ="checkImg" src="${basePath}/checkImg" width = '59' height = '30' style = 'display:block;vertical-align: middle;'>
+						</div>
 					</div>
 				</div>
 				<div class="yz_change">
-					<a href="#">看不清，<span>换一张！</span></a>
+					<a href="#" onclick="changeImage()">看不清，<span>换一张！</span></a>
 				</div>
 				<div class="clearfix"></div>
 				<input name="" onclick="tz_login(this)" type="button"
@@ -197,25 +200,66 @@ body {
 		$(function() {
 			$(document).keydown(function(e) {
 				if (e.keyCode === 13) {
-					tz_login();
+					$(".submit_btn").trigger("click");
 				}
 			});
 		});
-		function tz_login() {
+		function changeImage(){
+			var imgDom=document.getElementById("checkImg");  
+		    imgDom.src="${pageContext.request.contextPath}/checkImg?"+new Date().getTime();
+		};
+		/*登陆*/
+		function tz_login(obj) {
+			//获取用户和密码
 			var account = $("#account").val();
-			var password = $("#password").val();
-			$.tzAjax.request({
-				url : basePath + "/json/logined",
-				callback : function(data) {
+			var password = $("#password").val();//等价于document.getElementById("password").value;
+			var checkcode = $("#checkcode").val();
+			if(isEmpty(account)){//isEmpty()函数在工具类中 sgutil中
+				loading("请输入用户账号...",3);
+				$("#account").focus();
+				return ;
+			}
+			if(isEmpty(password)){
+				loading("请输入密码...",3);
+				$("#password").focus();
+				return ;
+			}
+			if(isEmpty(checkcode)){
+				loading("请输入验证码...",3);
+				$("#checkcode").focus();
+				return ;
+			}
+			//去事件
+			$(obj).val("登陆中...").removeAttr("onclick");
+			var json = {
+				type : "post",//请求方式
+				url : basePath + "/json/logined",//请求地址
+				data : {"account": account,"password":password,"checkcode":checkcode,
+				},//传递给服务器的参数
+				error : function() {//如果出错了，将事件重新绑定
+					$(obj).val("登陆").attr("onclick", "tz_login(this)");
+				},
+				success : function(data) {//返回成功执行回调函数.因为out.print是输入带有空格的。一定去空格
+					$(obj).val("登陆").attr("onclick", "tz_login(this)");
+					//data = data.trim();//去掉前后空格
+					alert(data.result);
 					if (data.result == "success") {
+						//浏览器地址的追踪
 						window.location.href = basePath + "/index";
+					} else if (data.result == "fail") {
+						loading("登陆失败，用户或者密码错误!!!",4);
+						$("#password").focus().val("");//清空密码    
+					}else if (data.result == "checkcodeFail") {
+						loading("验证码错误!!!",4);
+						$("#checkcode").focus().val("");//清空   
+					}else if (data.result == "codeNull") {
+						loading("请输入验证码!!!",4);
+						$("#checkcode").focus();//清空   
 					}
 				}
-			}, {
-				"account" : account,
-				"password" : password
-			});
-		}
+			};
+			$.ajax(json);
+		};
 	</script>
 </body>
 </html>

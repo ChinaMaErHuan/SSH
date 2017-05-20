@@ -12,11 +12,16 @@ package com.tz.dao.user.impl;
 import javax.transaction.Transactional;
 
 import org.hibernate.Query;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.tz.core.dao.BaseDaoImpl;
 import com.tz.dao.user.IUserDao;
 import com.tz.model.User;
+import com.tz.util.TzStringUtils;
 
 /**
  * 
@@ -40,4 +45,13 @@ public class UserDaoImpl extends BaseDaoImpl<User,Integer> implements IUserDao {
 		return user;
 	}
 
+	
+	@Override
+	public int countUser() {
+		DetachedCriteria detachedCriteria = getCurrentDetachedCriteria();
+		detachedCriteria.setProjection(Projections.count("id"));
+		Number number = (Number)detachedCriteria.getExecutableCriteria(getSession()).uniqueResult();
+		return number==null?0:number.intValue();
+	}
 }
+

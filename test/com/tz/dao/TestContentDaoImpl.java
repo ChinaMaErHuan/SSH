@@ -53,7 +53,7 @@ public class TestContentDaoImpl {
 		Set<String> urls = new HashSet<String>();
 		for (Element element : links) {
 			String href = element.attr("href");
-			if(TzStringUtils.isNotEmpty(href)&&href.startsWith(filterUrl)){
+			if(TzStringUtils.isNotEmpty(href)&& href.startsWith(filterUrl)){
 				urls.add(href);
 			}
 		}
@@ -67,6 +67,7 @@ public class TestContentDaoImpl {
 				String title = document2.getElementById("artibodyTitle").text();
 				String keyword = document2.getElementsByTag("meta").get(2).attr("content");
 				String tag = document.getElementsByTag("meta").get(3).attr("content");
+				System.out.println(tag);
 				String desc = document2.getElementsByTag("meta").get(4).attr("content");
 				String content = document2.getElementById("artibody").html();
 //				System.out.println(title+"==="+keyword+"==="+desc);

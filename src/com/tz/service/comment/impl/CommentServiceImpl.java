@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tz.core.TzLog;
 import com.tz.core.dao.TzParams;
 import com.tz.core.service.BaseServiceImpl;
 import com.tz.dao.comment.ICommentDao;
@@ -23,6 +24,7 @@ import com.tz.util.TzPageInfo;
  * 
  */
 @Service
+@TzLog(author="maerhuan",model="comment",desc="评论管理",name="评论模块")
 public class CommentServiceImpl extends BaseServiceImpl<Comment,Integer>  implements ICommentService {
 	
 	public ICommentDao getCommentDao() {
@@ -46,6 +48,7 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment,Integer>  implem
 	 * @exception 
 	 * @since  1.0.0
 	*/
+	@TzLog(author="maerhuan",model="comment",desc="查询评论",name="评论模块")
 	@Override
 	public List<Comment> findComments(TzParams params, TzPageInfo pageInfo) {
 		return getCommentDao().findComments(params, pageInfo);
@@ -62,6 +65,7 @@ public class CommentServiceImpl extends BaseServiceImpl<Comment,Integer>  implem
 	 * @exception 
 	 * @since  1.0.0
 	*/
+	@TzLog(author="maerhuan",model="comment",desc="计算评论",name="评论模块")
 	@Override
 	public int countComment(TzParams params) {
 		return getCommentDao().countComment(params);

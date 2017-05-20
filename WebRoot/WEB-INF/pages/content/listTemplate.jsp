@@ -10,9 +10,9 @@
 			<td>${content.id}</td>
 			<td class="title tmui-ellipsis w180">
 				<tz:if test="${empty content.staticUrl}">
-	   				<a href="javascript:void(0);" class="tmui-tips" tip="还未静态化">${content.title}</a>
+	   			<a href="javascript:void(0);" class="tmui-tips" tip="还未静态化">${content.title}</a>
 	   			<tz:else/>
-	   				<a href="${basePath}/${content.staticUrl}" target="_blank">${content.title}</a>
+	   			<a href="${basePath}/${content.staticUrl}" target="_blank">${content.title}</a>
    				</tz:if>
 			</td>
 			<td>

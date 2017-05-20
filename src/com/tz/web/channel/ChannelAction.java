@@ -20,7 +20,6 @@ import com.tz.core.Method;
 import com.tz.core.action.BaseAction;
 import com.tz.core.interceptor.TzRequestMethod;
 import com.tz.model.Channel;
-import com.tz.model.User;
 import com.tz.service.channel.IChannelService;
 
 @Controller("channelAction")
@@ -43,7 +42,7 @@ public class ChannelAction extends BaseAction {
 	 */
 	public String list() {
 		channels = channelService.findRootChannels(params, page);
-		int itemCount = channelService.countChannel(params);
+		int itemCount = channelService.countRootChannel(params);
 		page.setItemCount(String.valueOf(itemCount));
 		return LIST;
 	}
@@ -88,12 +87,19 @@ public class ChannelAction extends BaseAction {
 	 */
 	@Method(method = TzRequestMethod.POST)
 	public String save() {
-		channel.setUser(new User(1));
-		channel.setStatus(1);
-		channel.setIsDelete(0);
-		channel = channelService.save(channel);
-		channel.setUser(null);
-		result = "success";
+		try {
+			channel.setUser(getUser());
+			channel.setStatus(1);
+			channel.setIsDelete(0);
+			channel.setSort(1);
+			channel = channelService.save(channel);//递归序列化
+			channel.setUser(null);
+			channel.setChannels(null);
+			result = "success";
+		} catch (Exception e) {
+			e.printStackTrace();//JsonWriterException
+			result = "fail";
+		}
 		return AJAX_SUCCESS;
 	}
 
@@ -106,12 +112,12 @@ public class ChannelAction extends BaseAction {
 	 * @exception
 	 * @since 1.0.0
 	 */
-	@Method(method = TzRequestMethod.POST)
-	public String update() {
+//	@Method(method=TzRequestMethod.POST)
+	public String update(){
 		channel.setUpdateTime(new Date());
 		channel = channelService.updateDefault(channel);
-		channel = null;
-		result = "success";
+		channel=null;
+		result ="success";
 		return AJAX_SUCCESS;
 	}
 
@@ -135,6 +141,23 @@ public class ChannelAction extends BaseAction {
 		}
 		return AJAX_SUCCESS;
 	}
+	/**
+	 * 
+	 * 新增</br>
+	 * com.tz.web.channel </br>
+	 * 方法名：add </br>
+	 * 创建人：maerhuan </br>
+	 * 时间：2017年5月12日-下午10:16:58 </br>
+	 * @return String
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	public String add(){
+		if(id!=null){
+			channel = channelService.get(id);
+		}
+		return ADD;
+	}
 
 	public List<Channel> getChannels() {
 		return channels;
@@ -151,5 +174,6 @@ public class ChannelAction extends BaseAction {
 	public void setChannel(Channel channel) {
 		this.channel = channel;
 	}
+	
 
 }

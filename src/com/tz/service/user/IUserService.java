@@ -9,9 +9,10 @@
  */
 package com.tz.service.user;
 
+import com.tz.core.service.IBaseService;
 import com.tz.model.User;
 
-public interface IUserService {
+public interface IUserService extends IBaseService<User, Integer>{
 	/**
 	 * 
 	 * 根据账号密码查询用户</br>
@@ -26,4 +27,5 @@ public interface IUserService {
 	 * @since  1.0.0
 	 */
 	 User findExitUser(String account, String password);
+	 int countUser();
 }

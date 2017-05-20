@@ -22,38 +22,39 @@ import com.tz.util.TzPageInfo;
 /**
  * 
  * 
- * BaseDaoImpl 创建人:maerhuan 时间：2017年2月24日-下午3:44:33
- * 
+ * BaseDaoImpl
+ * 创建人:keke
+ * 时间：2015年4月29日-上午12:03:20 
  * @version 1.0.0
- * 
+ *
  */
 @Transactional
-public class BaseDaoImpl<T extends Serializable, PK extends Serializable> {
+public class BaseDaoImpl<T,PK extends Serializable> {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	
 	protected Class<T> entityClass;
-
 	/**
 	 * 无参构造函数获取注入的实体
 	 */
 	public BaseDaoImpl() {
-		this.entityClass = TzReflectionUtils
-				.getSuperClassGenricType(getClass());
+		this.entityClass = TzReflectionUtils.getSuperClassGenricType(getClass());
 	}
 
 	public Class<T> getEntityClass() {
 		return entityClass;
 	}
+	
+	
 
 	/**
-	 * 
-	 * 获取连接 com.tz.core.dao 方法名：getSession 创建人：maerhuan 时间：2017年2月24日-下午3:44:43
-	 * 
+	 * 获取连接对象
+	 * 方法名：getSession
+	 * 创建人：xuchengfei 时间：2015年4月29日-上午12:03:46 
 	 * @return Session
-	 * @exception
-	 * @since 1.0.0
+	 * @exception 
+	 * @since  1.0.0
 	 */
 	public Session getSession() {
 		if (sessionFactory != null) {
@@ -62,57 +63,28 @@ public class BaseDaoImpl<T extends Serializable, PK extends Serializable> {
 		return null;
 	}
 	
-	/**
-	 * 
-	 * 保存</br> com.tz.core.dao </br> 方法名：save </br> 创建人：maerhuan </br>
-	 * 时间：2017年3月4日-下午10:10:36 </br>
-	 * 
-	 * @param t
-	 * @return T
-	 * @exception
-	 * @since 1.0.0
-	 */
-	public T save(T t) {
+	
+	public T save(T t){
 		try {
 			getSession().save(t);
-			
 			return t;
 		} catch (Exception e) {
 			return null;
 		}
 	}
-
-	/**
-	 * 
-	 * 根据id获取bean</br> com.tz.core.dao </br> 方法名：get </br> 创建人：maerhuan </br>
-	 * 时间：2017年3月4日-下午10:17:13 </br>
-	 * 
-	 * @param id
-	 * @return T
-	 * @exception
-	 * @since 1.0.0
-	 */
+	
+	
 	@SuppressWarnings("unchecked")
 	public T get(PK id) {
 		Assert.notNull(id, "id不能为空");
 		return (T) getSession().get(getEntityClass(), id);
 	}
-
-	/**
-	 * 
-	 * 根据id获取bean</br> com.tz.core.dao </br> 方法名：get </br> 创建人：maerhuan </br>
-	 * 时间：2017年3月4日-下午10:17:13 </br>
-	 * 
-	 * @param id
-	 * @return T
-	 * @exception
-	 * @since 1.0.0
-	 */
+	
 	public T load(PK id) {
 		Assert.notNull(id, "id不能为空");
 		return load(id, false);
 	}
-
+	
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public T load(PK id, boolean lock) {
 		Assert.notNull(id, "id不能为空");
@@ -126,120 +98,91 @@ public class BaseDaoImpl<T extends Serializable, PK extends Serializable> {
 		return entity;
 	}
 
-	/**
-	 * 
-	 * 删除对象</br> com.tz.core.dao </br> 方法名：delete </br> 创建人：maerhuan </br>
-	 * 时间：2017年3月4日-下午10:17:54 </br>
-	 * 
-	 * @param entity
-	 *            void
-	 * @exception
-	 * @since 1.0.0
-	 */
+	// 删除对象方法
 	public void delete(T entity) {
 		Assert.notNull(entity, "entity不能为空");
 		getSession().delete(entity);
 	}
-
-	// 根据主键id删除 返回实体
+	
 	public T deleteById(PK id) {
 		Assert.notNull(id, "id不能为空");
 		T entity = load(id);
 		getSession().delete(entity);
 		return entity;
 	}
-
-	/**
-	 * 
-	 * 更新对象</br> com.tz.core.dao </br> 方法名：update </br> 创建人：maerhuan </br>
-	 * 时间：2017年3月4日-下午10:18:42 </br>
-	 * 
-	 * @param entity
-	 * @return T
-	 * @exception
-	 * @since 1.0.0
-	 */
+	
 	public T update(T entity) {
 		getSession().update(entity);
 		return entity;
 	}
-
+	
+	
 	/**
-	 * 
-	 * 更新对象</br> com.tz.core.dao </br> 方法名：updateDefault </br> 创建人：maerhuan
-	 * </br> 时间：2017年3月12日-下午11:10:47 </br>
-	 * 
-	 * @param entity
-	 * @return T
-	 * @exception
-	 * @since 1.0.0
-	 */
-	public T updateDefault(T entity) {
-		return updateByUpdater(TzUpdater.create(entity));
-	}
-
-	/**
-	 * 
-	 * 查询多个对象返回list</br> com.tz.core.dao </br> 方法名：find </br> 创建人：maerhuan </br>
-	 * 时间：2017年3月4日-下午10:19:22 </br>
-	 * 
+	 * 简单通用通配符查询
+	 * 方法名：find
+	 * 创建人：xuchengfei 
+	 * 时间：2015年5月6日-上午12:49:30 
 	 * @param sql
 	 * @param args
 	 * @return List<T>
-	 * @exception
-	 * @since 1.0.0
+	 * @exception 
+	 * @since  1.0.0
 	 */
-	@SuppressWarnings("unchecked")
-	public List<T> find(String hql, Object... args) {
-		Query query = getSession().createQuery(hql);
-		if (args != null && args.length > 0) {
+	public List<T> find(String sql ,Object...args){
+		Query query = getSession().createQuery(sql);
+		if(args!=null && args.length>0){
 			for (int i = 0; i < args.length; i++) {
 				query.setParameter(i, args[i]);
 			}
 		}
 		return query.list();
 	}
-
+	
 	/**
-	 * 
-	 * 获取当前离线查询对象</br> com.tz.core.dao </br> 方法名：getCurrentDetachedCriteria
-	 * </br> 创建人：maerhuan </br> 时间：2017年3月11日-上午12:46:38 </br>
-	 * 
-	 * @return DetachedCriteria
-	 * @exception
-	 * @since 1.0.0
+	 * 获取当前离线查询对象
+	 * @author xuchengfei
+	 * @date 2013-5-18 下午10:04:30
+	 * @modifyNote
+	 * @return
 	 */
 	public DetachedCriteria getCurrentDetachedCriteria() {
 		return DetachedCriteria.forClass(getEntityClass());
 	}
-	//查询并且分页
-	@SuppressWarnings("unchecked")
-	public List<T> findByDetachedCriteria(
-			final DetachedCriteria detachedCriteria, final TzPageInfo pageInfo) {
+	
+	public List<T> findByDetachedCriteria(final DetachedCriteria detachedCriteria,final TzPageInfo pageInfo){
 		return detachedCriteria.getExecutableCriteria(getSession())
 				.setFirstResult(Integer.parseInt(pageInfo.getFirstResult()))
 				.setMaxResults(Integer.parseInt(pageInfo.getMaxResults()))
 				.list();
 	}
-	//查询分页
-	@SuppressWarnings("unchecked")
-	public List<T> findByDetachedCriteria(
-			final DetachedCriteria detachedCriteria, Integer pageNo,
-			Integer pageSize) {
-		if (pageNo < 1)
-			pageNo = 1;
-		if (pageSize < 0)
-			pageSize = 0;
+	
+	
+	public List<T> findByDetachedCriteria(final DetachedCriteria detachedCriteria,Integer pageNo,Integer pageSize){
 		return detachedCriteria.getExecutableCriteria(getSession())
-				.setFirstResult(pageNo).setMaxResults(pageSize).list();
+				.setFirstResult(pageNo)
+				.setMaxResults(pageSize)
+				.list();
 	}
 	
-	//获取hibernate的元数据
+	/**
+	 * 更新对象
+	 * 方法名：updateDefault
+	 * 创建人：xuchengfei 时间：2015年3月26日-下午10:33:16 
+	 * @param entity
+	 * @return T
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	public T updateDefault(T entity) {
+		return updateByUpdater(TzUpdater.create(entity));
+	}
+	
+	
 	@SuppressWarnings("rawtypes")
 	private ClassMetadata getClassMetadata(Class clazz) {
 		return (ClassMetadata) sessionFactory.getClassMetadata(clazz);
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public T updateByUpdater(TzUpdater updater) {
 		ClassMetadata cm = getClassMetadata(updater.getBean().getClass());
@@ -251,7 +194,7 @@ public class BaseDaoImpl<T extends Serializable, PK extends Serializable> {
 		updaterCopyToPersistentObject(updater, po);
 		return po;
 	}
-
+	
 	/**
 	 * 将更新对象拷贝至实体对象，并处理many-to-one的更新。
 	 * 
@@ -287,5 +230,5 @@ public class BaseDaoImpl<T extends Serializable, PK extends Serializable> {
 			}
 		}
 	}
-
+	
 }

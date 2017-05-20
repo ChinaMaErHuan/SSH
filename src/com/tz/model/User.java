@@ -1,20 +1,9 @@
-/**
- * tzdesk系统平台
- * CMS
- * com.tz.model
- * User.java
- * 创建人:maerhuan 
- * 时间：2017年2月24日-下午4:39:28 
- * 2017潭州教育公司-版权所有
- */
 package com.tz.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,30 +16,22 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- * 
- * 
- * User 创建人:maerhuan 时间：2017年2月27日-下午9:11:18
- * 
- * @version 1.0.0
- */
 @Entity
 @Table(name = "tz_user")
-public class User implements Serializable {
-
+public class User implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;// 主键
 	private String account;// 账号
 	private String password;// 密码
-	private String username;// 昵称
+	private String username;// 用户名
+	private Date birthDay;// 生日
 	private Date createTime;// 创建时间
-	private List<Role> roles = new ArrayList<Role>(0);
+	private List<Role> roles = new ArrayList<Role>(0);// 角色
 
 	public User() {
 
 	}
 
-	
 	public User(Integer id) {
 		this.id = id;
 	}
@@ -65,7 +46,7 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "account", length = 100, nullable = false)
+	@Column(name = "account", length = 100)
 	public String getAccount() {
 		return account;
 	}
@@ -74,7 +55,7 @@ public class User implements Serializable {
 		this.account = account;
 	}
 
-	@Column(name = "password", length = 100)
+	@Column(name = "password", length = 80)
 	public String getPassword() {
 		return password;
 	}
@@ -83,7 +64,7 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "username", length = 100)
+	@Column(name = "username", length = 50)
 	public String getUsername() {
 		return username;
 	}
@@ -92,8 +73,7 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "create_time", columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP")
+	@Column(name = "create_time", columnDefinition = "Timestamp")
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -102,14 +82,25 @@ public class User implements Serializable {
 		this.createTime = createTime;
 	}
 
-	@ManyToMany(targetEntity = Role.class, cascade = CascadeType.ALL)
-	@JoinTable(name = "tz_role_user", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
+	// 产生了一个中间表，
+	@ManyToMany
+	@JoinTable(name = "tz_role_user", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	public List<Role> getRoles() {
 		return roles;
 	}
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "birth_day")
+	public Date getBirthDay() {
+		return birthDay;
+	}
+
+	public void setBirthDay(Date birthDay) {
+		this.birthDay = birthDay;
 	}
 
 }

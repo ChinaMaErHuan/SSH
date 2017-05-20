@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tz.core.TzLog;
 import com.tz.core.dao.TzParams;
 import com.tz.core.service.BaseServiceImpl;
 import com.tz.dao.channel.IChannelDao;
@@ -23,6 +24,7 @@ import com.tz.util.TzPageInfo;
  * 
  */
 @Service
+@TzLog(author="maerhuan",model = "栏目",desc="栏目管理模块",name = "栏目",time = "时间：2017年04月06日")
 public class ChannelServiceImpl extends BaseServiceImpl<Channel,Integer>  implements IChannelService {
 	
 	public IChannelDao getChannelDao() {
@@ -46,6 +48,7 @@ public class ChannelServiceImpl extends BaseServiceImpl<Channel,Integer>  implem
 	 * @exception 
 	 * @since  1.0.0
 	*/
+	@TzLog(author="maerhuan",model = "栏目",desc="查询栏目")
 	@Override
 	public List<Channel> findChannels(TzParams params, TzPageInfo pageInfo) {
 		return getChannelDao().findChannels(params, pageInfo);
@@ -62,6 +65,7 @@ public class ChannelServiceImpl extends BaseServiceImpl<Channel,Integer>  implem
 	 * @exception 
 	 * @since  1.0.0
 	*/
+	@TzLog(author="maerhuan",model = "栏目",desc="查询栏目数量")
 	@Override
 	public int countChannel(TzParams params) {
 		return getChannelDao().countChannel(params);
@@ -79,6 +83,7 @@ public class ChannelServiceImpl extends BaseServiceImpl<Channel,Integer>  implem
 	 * @exception 
 	 * @since  1.0.0
 	*/
+	@TzLog(author="maerhuan",model = "栏目",desc="查询根栏目")
 	@Override
 	public List<Channel> findRootChannels(TzParams params, TzPageInfo pageInfo) {
 		
@@ -96,6 +101,7 @@ public class ChannelServiceImpl extends BaseServiceImpl<Channel,Integer>  implem
 	 * @exception 
 	 * @since  1.0.0
 	*/
+	@TzLog(author="maerhuan",model = "栏目",desc="查询根栏目数量")
 	@Override
 	public int countRootChannel(TzParams params) {
 		return getChannelDao().countRootChannel(params);

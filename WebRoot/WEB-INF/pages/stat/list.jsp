@@ -51,9 +51,11 @@
 				<thead>
 					<tr>
 						<th>序号</th>
-						<th class="w180">标题</th>
+						<th class="w180">类名</th>
+						<th>执行方法</th>
+ 		          		<th>方法解释</th> 
+ 		          		<th>执行时间(单位:毫秒)</th> 
 		          		<th>创建时间</th>
-		          		<th>状态</th>
 						<th>操作</th>
 					</tr>
 				</thead>

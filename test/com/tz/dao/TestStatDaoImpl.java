@@ -41,7 +41,6 @@ public class TestStatDaoImpl {
 			stat = new Stat();
 			stat.setIsDelete(1);
 			stat.setName("啊师傅过来的开发");
-			stat.setStatus(1);
 			stat.setCreateTime(new Date());
 			statDao.save(stat);
 		}

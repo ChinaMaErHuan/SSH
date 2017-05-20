@@ -14,6 +14,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tz.core.TzLog;
 import com.tz.core.dao.TzParams;
 import com.tz.core.service.BaseServiceImpl;
 import com.tz.dao.content.IContentDao;
@@ -29,6 +30,7 @@ import com.tz.util.TzPageInfo;
  * @version 1.0.0
  *
  */
+@TzLog(author="maerhuan",model="content",desc="内容功能",name="内容管理")
 @Service
 public class ContentServiceImpl extends BaseServiceImpl<Content, Integer> implements IContentService{
 
@@ -53,6 +55,7 @@ public class ContentServiceImpl extends BaseServiceImpl<Content, Integer> implem
 	 * @exception 
 	 * @since  1.0.0
 	*/
+	@TzLog(author="maerhuan",model="content",desc="查询文章",name="内容管理")
 	@Override
 	public List<Content> findContents(TzParams params, TzPageInfo pageInfo) {
 		return getContentDao().findContents(params, pageInfo);
@@ -69,6 +72,7 @@ public class ContentServiceImpl extends BaseServiceImpl<Content, Integer> implem
 	 * @exception 
 	 * @since  1.0.0
 	*/
+	@TzLog(author="maerhuan",model="content",desc="计算文章",name="文章")
 	@Override
 	public int countCotent(TzParams params) {
 		return getContentDao().countCotent(params);

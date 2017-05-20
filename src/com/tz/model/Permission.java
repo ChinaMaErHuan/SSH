@@ -39,7 +39,7 @@ import org.apache.struts2.json.annotations.JSON;
  * 
  */
 @Entity
-@Table(name = "tz_permission")
+@Table(name = "tz_permission2")
 public class Permission implements Serializable {
 	// 读写分离：hibernate就是做增删改，mybatis或者springjdbctemplate作为查询
 	// 大型项目不建议使用hibernate

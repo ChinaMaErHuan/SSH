@@ -104,71 +104,71 @@ function tz_keywordHighlighter(keyword){
 };
 
 
-//点击编辑的时候触发的时间
+////点击编辑的时候触发的时间
 function tz_edit(obj){
 	var opid = $(obj).data("opid");
-$.ajax({
+	$.ajax({
 	type:"post",
 	url:basePath+"/admin/channel/edit",
 	data:{"id":opid},
 	success:function(data){
-		$("#title").data("opid",opid).val(data.title);
-		setEditorContent("p_desc",data.channel);
+		
+		
 		}
 	});
 };
 
 //更新
-function tz_updateSave(){
-	var title = $("#title").val();
-var ctext = getEditorText("p_desc");
-var opid = $("#title").data("opid");
-var channel = getEditorHtml("p_desc");
-if(isEmpty(title)){
-	loading("请输入标题...",3);
-	$("#title").focus();
-	return false;
-}
-
-if(isEmpty(ctext)){
-	loading("请输入内容...",3);
-	editorFocus("p_desc");
-	return false;
-}
-var params = {"channel.title":title,"channel.channel":channel};
-var method = "save";
-if(isNotEmpty(opid)){
-	method = "update";
-	params["channel.id"] = opid;
-}
-$.ajax({
-	type:"post",
-	url:basePath+"/json/channel/"+method,
-	data:params,
-	success:function(data){
-		if(data.result=="success"){
-			if(isEmpty(opid)){
-				loading("保存成功！！！");
-				$("#title").removeData("opid").val("");
-				setEditorContent("p_desc","");
-				$("#tz_tbody").prepend("<tr id='tz-items-"+data.channel.id+"'>"+
-				"	<td>55</td>"+
-				"		<td class='tmui-ellipsis w180 title'>"+title+"</td>"+
-				"		<td>"+
-				"			<a href='javascript:void(0);' data-opid='"+data.channel.id+"' onclick='tz_edit(this)' class='edit_w'>编辑</a>"+
-				"			<a href='javascript:void(0);' data-opid='"+data.channel.id+"' onclick='tz_delete(this)'>删除</a>"+
-				"		</td>"+
-				"	 </tr>");
-			}else{
-				loading("更新成功!!!");
-				$("#title").removeData("opid").val("");
-				setEditorContent("p_desc","");
-				$("#tz-items-"+opid).find(".title").text(title);
-				}
-			}
-		}
-	});
-};
+//function tz_updateSave(){
+//	var title = $("#title").val();
+//var ctext = getEditorText("p_desc");
+//var opid = $("#title").data("opid");
+//var channel = getEditorHtml("p_desc");
+//if(isEmpty(title)){
+//	loading("请输入标题...",3);
+//	$("#title").focus();
+//	return false;
+//}
+//
+//if(isEmpty(ctext)){
+//	loading("请输入内容...",3);
+//	editorFocus("p_desc");
+//	return false;
+//}
+//var params = {"channel.title":title,"channel.channel":channel};
+//var method = "save";
+//if(isNotEmpty(opid)){
+//	method = "update";
+//	params["channel.id"] = opid;
+//}
+//$.ajax({
+//	type:"post",
+//	url:basePath+"/json/channel/"+method,
+//	data:params,
+//	success:function(data){
+//		if(data.result=="success"){
+//			if(isEmpty(opid)){
+//				loading("保存成功！！！");
+//				$("#title").removeData("opid").val("");
+//				setEditorContent("p_desc","");
+//				$("#tz_tbody").prepend("<tr id='tz-items-"+data.channel.id+"'>"+
+//				"	<td>55</td>"+
+//				"		<td class='tmui-ellipsis w180 title'>"+title+"</td>"+
+//				"		<td>"+
+//				"			<a href='javascript:void(0);' data-opid='"+data.channel.id+"' onclick='tz_edit(this)' class='edit_w'>编辑</a>"+
+//				"			<a href='javascript:void(0);' data-opid='"+data.channel.id+"' onclick='tz_delete(this)'>删除</a>"+
+//				"		</td>"+
+//				"	 </tr>");
+//			}else{
+//				loading("更新成功!!!");
+//				$("#title").removeData("opid").val("");
+//				setEditorContent("p_desc","");
+//				$("#tz-items-"+opid).find(".title").text(title);
+//				}
+//			}
+//		}
+//	});
+//};
 
 //删除
 function tz_delete(obj){

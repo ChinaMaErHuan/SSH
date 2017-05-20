@@ -15,8 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.json.JSONUtil;
+import org.apache.struts2.json.annotations.JSON;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.tz.core.dao.TzParams;
+import com.tz.model.User;
+import com.tz.util.TzConstanst;
 import com.tz.util.TzPageInfo;
 
 public class BaseAction {
@@ -29,6 +33,7 @@ public class BaseAction {
 	public static final String SUCCESS = "success";
 	public static final String FAIL = "fail";
 	public static final String ERROR = "error";
+	public static final String CHECKCODEFAILE = "checkcodeFail";
 	
 	public Integer id;
 	
@@ -37,8 +42,13 @@ public class BaseAction {
 	//参数
 	public TzParams params = new TzParams();
 	
-	protected String result;
+	public String result;
 	
+	@JSON(serialize=false)
+	public User getUser(){
+		User user = (User)ActionContext.getContext().getSession().get(TzConstanst.SESSION_USERKEY);
+		return user;
+	}
 	
 	public void outObject(Object obj){
 		HttpServletResponse response = ServletActionContext.getResponse();

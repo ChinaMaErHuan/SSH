@@ -44,10 +44,12 @@ public class StaticHtmlAction extends BaseAction{
 	//静态化banner
 	//静态化区块
 	/**
-	 * jsp静态化的处理类
-	 * 方法名：staticHtml
-	 * 创建人：maerhuan 
-	 * 时间：2015年5月23日-下午11:19:39 
+	 * 
+	 * 静态化处理</br>
+	 * com.tz.web.statichtml </br>
+	 * 方法名：staticHtml </br>
+	 * 创建人：maerhuan </br>
+	 * 时间：2017年5月19日-下午1:11:13 </br>
 	 * @return String
 	 * @exception 
 	 * @since  1.0.0
@@ -67,7 +69,7 @@ public class StaticHtmlAction extends BaseAction{
 //		}
 //		return AJAX_SUCCESS;
 //	}
-	//静态化处理
+	
 	public  String  staticContent(Integer cid){
 		Content content = contentService.get(cid);
 		if(content==null){
@@ -80,7 +82,7 @@ public class StaticHtmlAction extends BaseAction{
 		String staticUrl = content.getStaticUrl();
 		File targetFile = null;
 		try {
-			if(TzStringUtils.isNotEmpty(staticUrl)){//已经静态化
+			if(TzStringUtils.isNotEmpty(staticUrl)){
 				String path = request.getRealPath("/");
 				File rootPath = new File(path);
 				targetFile = new File(rootPath,staticUrl);
@@ -93,6 +95,7 @@ public class StaticHtmlAction extends BaseAction{
 				String name = cid+getRandomString(8)+".html"; 
 				targetFile = new File(rootPath,name);
 				staticUrl = rpath+"/"+name;
+				//System.out.println(staticUrl);
 			}
 			RequestDispatcher rd = sc.getRequestDispatcher("/template/content.jsp");
 			final ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -105,10 +108,12 @@ public class StaticHtmlAction extends BaseAction{
 				}
 				@Override
 				public boolean isReady() {
+					// TODO Auto-generated method stub
 					return false;
 				}
 				@Override
 				public void setWriteListener(WriteListener arg0) {
+					// TODO Auto-generated method stub
 					
 				}
 			};
@@ -131,6 +136,8 @@ public class StaticHtmlAction extends BaseAction{
 			os.writeTo(fos);//讲源代码写入磁盘文件中
 			//静态化的url更新数据表中
 			content.setStaticUrl(staticUrl);
+			content.setUpdateTime(new Date());
+			//System.out.println(content.getStaticUrl());
 			contentService.updateDefault(content);
 			return "success";
 		} catch (FileNotFoundException e) {

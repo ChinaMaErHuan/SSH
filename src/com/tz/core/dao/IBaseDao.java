@@ -1,106 +1,81 @@
-/**
- * tzdesk系统平台
- * cms
- * com.tz.core.dao
- * IBaseDao.java
- * 创建人:maerhuan 
- * 时间：2017年3月3日-下午11:00:54 
- * 2017潭州教育公司-版权所有
- */
 package com.tz.core.dao;
 
 import java.io.Serializable;
 import java.util.List;
 
+
 /**
  * 
  * 
- * IBaseDao 创建人:maerhuan 时间：2017年3月3日-下午11:01:10
- * 
+ * BaseDaoImpl
+ * 创建人:maerhuan
  * @version 1.0.0
- * 
+ *
  */
-public interface IBaseDao<T extends Serializable, PK extends Serializable> {
+public interface IBaseDao<T,PK extends Serializable> {
+
 	/**
 	 * 
-	 * 保存方法</br> com.tz.core.dao </br> 方法名：save</br> 创建人：maerhuan </br>
-	 * 时间：2017年3月3日-下午11:07:12 </br>
-	 * 
+	 * (这里用一句话描述这个方法的作用)</br>
+	 * com.tz.core.dao </br>
+	 * 方法名：save </br>
+	 * 创建人：maerhuan </br>
+	 * 时间：2017年5月17日-下午7:04:57 </br>
 	 * @param t
 	 * @return T
-	 * @exception
-	 * @since 1.0.0
+	 * @exception 
+	 * @since  1.0.0
 	 */
-	 T save(T t);
-
+	public T save(T t); 
+	
 	/**
-	 * 根据主键id获取实体</br> com.tz.core.dao </br> 方法名：get </br> 创建人：maerhuan </br>
-	 * 时间：2017年3月3日-下午11:49:03 </br>
-	 * 
+	 * 根据主键获取实体
+	 * 方法名：get
+	 * 创建人：maerhuan
 	 * @param id
 	 * @return T
-	 * @exception
-	 * @since 1.0.0
+	 * @exception 
+	 * @since  1.0.0
 	 */
-
-	 T get(PK id);
-
+	public T get(PK id) ;
+	
 	/**
-	 * 根据主键id获取实体</br> com.tz.core.dao </br> 方法名：get </br> 创建人：maerhuan </br>
-	 * 时间：2017年3月3日-下午11:49:03 </br>
-	 * 
+	 * 根据主键获取实体
+	 * 方法名：load
+	 * 创建人：maerhuan
 	 * @param id
 	 * @return T
-	 * @exception
-	 * @since 1.0.0
+	 * @exception 
+	 * @since  1.0.0
 	 */
-	 T load(PK id);
-
+	public T load(PK id) ;
+	
 	/**
-	 * 
-	 * 根据主键删除</br> com.tz.core.dao </br> 方法名：delete </br> 创建人：maerhuan </br>
-	 * 时间：2017年3月4日-上午12:45:28 </br>
-	 * 
-	 * @param entity
-	 *            void
-	 * @exception
-	 * @since 1.0.0
-	 */
-	 void delete(T entity);
-
-	/**
-	 * 删除</br> com.tz.core.dao </br> 方法名：deleteById </br> 创建人：maerhuan </br>
-	 * 时间：2017年3月4日-上午12:47:40 </br>
-	 * 
+	 * 根据主键删除
+	 * 方法名：get
+	 * 创建人：maerhuan
 	 * @param id
 	 * @return T
-	 * @exception
-	 * @since 1.0.0
+	 * @exception 
+	 * @since  1.0.0
 	 */
-	 T deleteById(PK id);
-
+	public void delete(T entity);
+	
 	/**
-	 * 根据主键更新实体</br> com.tz.core.dao </br> 方法名：update </br> 创建人：maerhuan </br>
-	 * 时间：2017年3月4日-上午12:46:10 </br>
-	 * 
-	 * @param entity
+	 * 根据主键获取实体
+	 * 方法名：get
+	 * 创建人：maerhuan
+	 * @param id
 	 * @return T
-	 * @exception
-	 * @since 1.0.0
+	 * @exception 
+	 * @since  1.0.0
 	 */
-	 T update(T entity);
-
-	 T updateDefault(T entity);
-	/**
-	 * 
-	 * 查询</br> com.tz.core.dao </br> 方法名：find </br> 创建人：maerhuan </br>
-	 * 时间：2017年3月4日-下午3:56:00 </br>
-	 * 
-	 * @param sql
-	 * @param args
-	 * @return List<T>
-	 * @exception
-	 * @since 1.0.0
-	 */
-	 List<T> find(String hql, Object... args);
+	public T deleteById(PK id);
+	
+	public T update(T entity);
+	
+	public T updateDefault(T entity);
+	
+	public List<T> find(String sql ,Object...args);
+	
 }

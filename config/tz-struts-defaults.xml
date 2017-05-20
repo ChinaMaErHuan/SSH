@@ -46,7 +46,7 @@
 
 	<!-- 登陆和首页 -->
 	<package name="loginpackage"  extends="defaults">
-		
+		<!-- 通用配置 -->
 		<action name="/admin/*/*" method="{2}" class="{1}Action">
 			<result name="{2}">/WEB-INF/pages/{1}/{2}.jsp</result>
 		</action>
@@ -64,6 +64,8 @@
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
 		
+		
+		
 		<!-- 跳转首页 -->
 		<action name="login" method="login" class="loginAction">
 			<result name="login">/WEB-INF/pages/login.jsp</result>
@@ -76,6 +78,9 @@
 		<action name="upload/*" method="{1}" class="uploadAction">
 			<result name="{1}">/WEB-INF/pages/upload/{1}.jsp</result>
 			<result name="callback">/WEB-INF/pages/upload/callback.jsp</result>
+		</action>
+		<!-- 生成验证码 -->
+		<action name="checkImg"  class="checkImgAction">
 		</action>
 	</package>
 </struts>   

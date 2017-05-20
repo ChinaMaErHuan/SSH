@@ -19,4 +19,7 @@ public interface IUserDao extends IBaseDao<User, Integer> {
 	 * @since  1.0.0
 	 */
 	 User findExitUser(String account,String password);
+	 
+	 int countUser();
+	 
 }

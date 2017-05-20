@@ -101,7 +101,7 @@ public class StatAction extends BaseAction{
 	@Method(method=TzRequestMethod.POST)
 	public String save(){
 		stat.setUser(new User(1));
-		stat.setStatus(1);
+		
 		stat.setIsDelete(0);
 		stat = statService.save(stat);
 		stat.setUser(null);
