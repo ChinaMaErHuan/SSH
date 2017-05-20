@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+	<description>SpringRmi配置文件</description>
+	<!-- 如果没有用spring注解扫包的方式，这行代码必须开着 -->
+	<!-- <bean id="userServiceWebImpl" class="com.tz.service.ws.impl.UserServiceWebImpl"></bean> -->
+	<!-- 导入spring-web.jar -->
+	<bean id="serviceExporter" class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<!-- 服务的实现类 -->
+		<property name="service" ref="userServiceWebImpl" />
+		<!-- 定义服务名，给客户端调用的名称 -->
+		<property name="serviceName" value="userServiceWeb" />
+		<!-- 服务端的接口 -->
+		<property name="serviceInterface" value="com.tz.service.ws.IUserServiceWeb" />
+		<!-- 服务端的端口号，这个也是供客户端调用的 -->
+		<property name="registryPort" value="8088"></property>
+	</bean>
+	
+	<bean id="channelExporter" class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<!-- 服务的实现类 -->
+		<property name="service" ref="channelServiceWebImpl" />
+		<!-- 定义服务名，给客户端调用的名称 -->
+		<property name="serviceName" value="channelServiceWeb" />
+		<!-- 服务端的接口 -->
+		<property name="serviceInterface" value="com.tz.service.ws.IChannelServiceWeb" />
+		<!-- 服务端的端口号，这个也是供客户端调用的 -->
+		<property name="registryPort" value="8089"></property>
+	</bean>	
+		
+		
+</beans>
